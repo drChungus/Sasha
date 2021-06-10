@@ -41,4 +41,5 @@ void loop()
 
   updateLEDs(colorCode);
   delay(10); 
+  Serial.println(analogRead(ai5pin))
 }
