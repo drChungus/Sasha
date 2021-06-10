@@ -53,3 +53,10 @@ void updateLEDs(byte colorCode){
   led3.drive();
   led4.drive();
 }
+int readCV(int pin){
+  int sum;
+  for (int i=0; i<10; i++){
+    sum+=analogRead(pin);
+  }
+  return (sum/10);  
+}

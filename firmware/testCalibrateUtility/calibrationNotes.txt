@@ -1,0 +1,8 @@
+0V->31500
+3V->19210
+5V->11036
+7V->2860
+
+real = read * gainError + offsetError
+
+gainError = (read1 - read2) / real1 - real2

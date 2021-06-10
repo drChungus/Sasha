@@ -17,6 +17,7 @@ void setup()
   pinMode(button3pin,INPUT_PULLUP);
   
   Serial.begin(115200);
+  analogReadResolution(analogRes);
 	// Audio connections require memory to work.  For more
   // detailed information, see the MemoryAndCpuUsage example
   AudioMemory(12);
@@ -38,8 +39,8 @@ void loop()
     Serial.print(" New value: ");Serial.println(newValue);
     previousFrontPanel = currentFrontPanel;
   }
-
+  colorCode=0b00011011;
   updateLEDs(colorCode);
-  delay(10); 
-  Serial.println(analogRead(ai5pin))
+  delay(0); 
+  Serial.println(readCV(ai5pin));
 }

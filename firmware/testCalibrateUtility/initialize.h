@@ -40,7 +40,8 @@ struct frontPanel{
 };
 
 bool normalizationProbeState;
-int potTolerance = 2;
+int analogRes = 12;
+int potTolerance = 8;
 
 int colorCode;
 BiColorLED led1=BiColorLED(8,5);
