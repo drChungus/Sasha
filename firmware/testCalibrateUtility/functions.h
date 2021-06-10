@@ -53,10 +53,13 @@ void updateLEDs(byte colorCode){
   led3.drive();
   led4.drive();
 }
-int readCV(int pin){
-  int sum;
-  for (int i=0; i<10; i++){
+double readCV(int pin){
+  double sum;
+  for (int i=0; i<10; i++){ ///use 10000 samples for calibration and do every voltage! It makes sense to check the voltage source with a high precision meter, as the reference can also be off!
     sum+=analogRead(pin);
   }
-  return (sum/10);  
+  double dataValue = sum/10;
+  dataValue = (dataValue-3149.1) / -409;
+;
+  return dataValue;  
 }
