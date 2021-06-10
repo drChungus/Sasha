@@ -1,3 +1,4 @@
+#include <BiColorLED.h> 
 #define frontPanelCatalogElements 17  //number of elements on the frontPanel
 
 int frontPanelIndexCatalog [frontPanelCatalogElements] = {1,2,3,4,5,6,7,8,10,20,30,11,22,33,44};  //indexes of fron panele element in the struct
