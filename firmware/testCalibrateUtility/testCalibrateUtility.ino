@@ -5,7 +5,7 @@
 
 
 const int myInput = AUDIO_INPUT_LINEIN;
-frontPanel currentFrontPanel;
+frontPanel currentFrontPanel, previousFrontPanel;
 
 
 void setup()
@@ -24,5 +24,14 @@ void setup()
 void loop()
 {
   currentFrontPanel = readFrontPanel();
-  Serial.println(currentFrontPanel.pot1);
+  int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);
+  int newValue = showStructValue(currentFrontPanel, diffIndex);
+  
+  //Serial.println(currentFrontPanel.pot1);
+  if (diffIndex != -1){
+    Serial.print("Difference at index ");Serial.print(diffIndex);
+    Serial.print(" New value: ");Serial.println(newValue);
+  }
+
+  previousFrontPanel = currentFrontPanel;
 }

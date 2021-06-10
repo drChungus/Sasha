@@ -17,9 +17,22 @@ frontPanel readFrontPanel(){
 
 int searchStructDiffIndex (frontPanel s1, frontPanel s2){
     int diffIndex = -1;
-    if(s1[1] != s2[1]){
-      
-    };
-    
+    for (int i = 0; i < 8; ++i) //check Pots
+    {
+      if(s1[i] != s2[i]){
+        diffIndex = frontPanelIndexCatalog[i];
+      };
+    }    
+    for (int i = 0; i < 3; ++i) //CheckButtons
+    {
+      if(s1(i*10) != s2(i*10)){
+        diffIndex = frontPanelIndexCatalog[i+8];
+      };
+    }
     return diffIndex;
+};
+
+int showStructValue (frontPanel thisPanel, int diffIndex()){
+  int Value = thisPanel[diffIndex];
+  return Value;
 };
