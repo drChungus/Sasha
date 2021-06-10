@@ -1,38 +1,44 @@
 frontPanel readFrontPanel(){
   frontPanel currentFrontPanel;
-  currentFrontPanel.pot1 = analogRead(pot1pin);
-  currentFrontPanel.pot2 = analogRead(pot2pin);
-  currentFrontPanel.pot3 = analogRead(pot3pin);
-  currentFrontPanel.pot4 = analogRead(pot4pin);
-  currentFrontPanel.pot5 = analogRead(pot5pin);
-  currentFrontPanel.pot6 = analogRead(pot6pin);
-  currentFrontPanel.pot7 = analogRead(pot7pin);
-  currentFrontPanel.pot8 = analogRead(pot8pin);
-  currentFrontPanel.button1 = digitalRead(button1pin);
-  currentFrontPanel.button2 = digitalRead(button2pin);
-  currentFrontPanel.button3 = digitalRead(button3pin);
+  currentFrontPanel.pot1 = map(analogRead(pot1pin),0,1023,0,127);
+  currentFrontPanel.pot2 = map(analogRead(pot2pin),0,1023,0,127);
+  currentFrontPanel.pot3 = map(analogRead(pot3pin),0,1023,0,127);
+  currentFrontPanel.pot4 = map(analogRead(pot4pin),0,1023,0,127);
+  currentFrontPanel.pot5 = map(analogRead(pot5pin),0,1023,0,127);
+  currentFrontPanel.pot6 = map(analogRead(pot6pin),0,1023,0,127);
+  currentFrontPanel.pot7 = map(analogRead(pot7pin),0,1023,0,127);
+  currentFrontPanel.pot8 = map(analogRead(pot8pin),0,1023,0,127);
+  currentFrontPanel.button1 = !digitalRead(button1pin);
+  currentFrontPanel.button2 = !digitalRead(button2pin);
+  currentFrontPanel.button3 = !digitalRead(button3pin);
   return currentFrontPanel;
 };
 
 
 int searchStructDiffIndex (frontPanel s1, frontPanel s2){
     int diffIndex = -1;
-    for (int i = 0; i < 8; ++i) //check Pots
+    for (int i = 0; i < 9; ++i) //check Pots /////1 only!!!
     {
-      if(s1[i] != s2[i]){
-        diffIndex = frontPanelIndexCatalog[i];
+      if( abs(s1[i] - s2[i]) > potTolerance){
+        diffIndex = i; //this indexin works, but it is shady AF
       };
     }    
-    for (int i = 0; i < 3; ++i) //CheckButtons
+    for (int i = 1; i < 4; ++i) //CheckButtons
     {
       if(s1(i*10) != s2(i*10)){
-        diffIndex = frontPanelIndexCatalog[i+8];
+        diffIndex = frontPanelIndexCatalog[i+7];
       };
     }
     return diffIndex;
 };
 
-int showStructValue (frontPanel thisPanel, int diffIndex()){
-  int Value = thisPanel[diffIndex];
+int showStructValue (frontPanel thisPanel, int diffIndex){
+  int Value;
+  if (diffIndex < 10){
+    Value = thisPanel[diffIndex];
+  }
+  else {
+    Value= thisPanel(diffIndex);
+  }
   return Value;
 };

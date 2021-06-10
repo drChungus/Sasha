@@ -10,6 +10,10 @@ frontPanel currentFrontPanel, previousFrontPanel;
 
 void setup()
 {
+  pinMode(button1pin,INPUT_PULLUP);
+  pinMode(button2pin,INPUT_PULLUP);
+  pinMode(button3pin,INPUT_PULLUP);
+  
   Serial.begin(115200);
 	// Audio connections require memory to work.  For more
   // detailed information, see the MemoryAndCpuUsage example
@@ -25,13 +29,14 @@ void loop()
 {
   currentFrontPanel = readFrontPanel();
   int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);
-  int newValue = showStructValue(currentFrontPanel, diffIndex);
+  
   
   //Serial.println(currentFrontPanel.pot1);
   if (diffIndex != -1){
+    int newValue = showStructValue(currentFrontPanel, diffIndex);
     Serial.print("Difference at index ");Serial.print(diffIndex);
     Serial.print(" New value: ");Serial.println(newValue);
+    previousFrontPanel = currentFrontPanel;
   }
-
-  previousFrontPanel = currentFrontPanel;
+  
 }

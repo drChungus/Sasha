@@ -17,6 +17,7 @@ struct frontPanel{
             case 6 : return pot6;
             case 7 : return pot7;
             case 8 : return pot8;
+            default: return pot1;
             //default: throw std::runtime_error( "bad index" );
         }
   }
@@ -29,6 +30,7 @@ struct frontPanel{
             case 22 : return conn2;
             case 33 : return conn3;
             case 44 : return conn4;
+            default: return button1;
             //default: throw std::runtime_error( "bad index" );
         }
   }
@@ -36,3 +38,4 @@ struct frontPanel{
 };
 
 bool normalizationProbeState;
+int potTolerance = 2;
