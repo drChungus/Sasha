@@ -1,4 +1,5 @@
 #include <BiColorLED.h> 
+
 #define frontPanelCatalogElements 17  //number of elements on the frontPanel
 
 int frontPanelIndexCatalog [frontPanelCatalogElements] = {1,2,3,4,5,6,7,8,10,20,30,11,22,33,44};  //indexes of fron panele element in the struct
@@ -40,3 +41,9 @@ struct frontPanel{
 
 bool normalizationProbeState;
 int potTolerance = 2;
+
+int colorCode;
+BiColorLED led1=BiColorLED(8,5);
+BiColorLED led2=BiColorLED(24,2);
+BiColorLED led3=BiColorLED(26,25);
+BiColorLED led4=BiColorLED(27,28);

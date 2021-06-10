@@ -8,6 +8,8 @@ const int myInput = AUDIO_INPUT_LINEIN;
 frontPanel currentFrontPanel, previousFrontPanel;
 
 
+
+
 void setup()
 {
   pinMode(button1pin,INPUT_PULLUP);
@@ -30,13 +32,13 @@ void loop()
   currentFrontPanel = readFrontPanel();
   int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);
   
-  
-  //Serial.println(currentFrontPanel.pot1);
   if (diffIndex != -1){
     int newValue = showStructValue(currentFrontPanel, diffIndex);
     Serial.print("Difference at index ");Serial.print(diffIndex);
     Serial.print(" New value: ");Serial.println(newValue);
     previousFrontPanel = currentFrontPanel;
   }
-  
+
+  updateLEDs(colorCode);
+  delay(10); 
 }

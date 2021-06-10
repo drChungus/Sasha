@@ -42,3 +42,14 @@ int showStructValue (frontPanel thisPanel, int diffIndex){
   }
   return Value;
 };
+
+void updateLEDs(byte colorCode){
+  led4.setColor(colorCode & 0b11);    //led colors encoded in one byte, MSB to LSB order
+  led3.setColor((colorCode & 0b1100)>>2);
+  led2.setColor((colorCode & 0b110000)>>4);
+  led1.setColor((colorCode & 0b11000000)>>6);
+  led1.drive();
+  led2.drive();
+  led3.drive();
+  led4.drive();
+}
