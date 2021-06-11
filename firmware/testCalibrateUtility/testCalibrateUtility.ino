@@ -42,5 +42,6 @@ void loop()
   colorCode=0b00011011;
   updateLEDs(colorCode);
   delay(0); 
-  Serial.println(readCV(ai5pin));
+  //Serial.println(readCV(ai5pin));
+  Serial.println(AudioProcessorUsage());
 }
