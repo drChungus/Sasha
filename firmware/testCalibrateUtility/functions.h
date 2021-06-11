@@ -88,8 +88,11 @@ void fpEventHandler(){
     {
       frontPanelPage--;
     }
-
-    myFrontPanels[frontPanelPage] = currentFrontPanel;
+    if (diffIndex > 10)
+    {
+      myFrontPanels[frontPanelPage][diffIndex] = currentFrontPanel[diffIndex];
+    }
+    
     previousFrontPanel = currentFrontPanel;
   }
 }
