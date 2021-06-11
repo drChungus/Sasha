@@ -2,7 +2,7 @@ double phaseAmt = 360.0;
 
 
 
-void setAlgorithm(int algorithmCode){
+void setAlgorithm(int algorithmCode){	//Algorith code is 0b000, where mixer gains are stored in binary 
 
 	for (int i = 0; i < 4; ++i)	
 	{
@@ -44,10 +44,10 @@ void initializeAudioEngine(){
 
 
 void updateLevel(frontPanel myPanels[], int myPage){
-	waveformMod1.amplitude(myPanels[1].pot3);
-	waveformMod2.amplitude(myPanels[2].pot3);
-	waveformMod3.amplitude(myPanels[3].pot3);
-	waveformMod4.amplitude(myPanels[4].pot3);
+	waveformMod1.amplitude(scaleSimple(myPanels[1].pot3,0,255,0,1));
+	waveformMod2.amplitude(scaleSimple(myPanels[2].pot3,0,255,0,1));
+	waveformMod3.amplitude(scaleSimple(myPanels[3].pot3,0,255,0,1));
+	waveformMod4.amplitude(scaleSimple(myPanels[4].pot3,0,255,0,1));
 }
 
 void updateWaveform(frontPanel myPanels[], int myPage){

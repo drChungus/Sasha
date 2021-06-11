@@ -1,15 +1,17 @@
 frontPanel currentFrontPanel, previousFrontPanel;
+frontPanel[6] myFrontPanels;
+int frontPanelPage;
 
 frontPanel readFrontPanel(){
   frontPanel currentFrontPanel;
-  currentFrontPanel.pot1 = map(analogRead(pot1pin),0,1023,0,127);
-  currentFrontPanel.pot2 = map(analogRead(pot2pin),0,1023,0,127);
-  currentFrontPanel.pot3 = map(analogRead(pot3pin),0,1023,0,127);
-  currentFrontPanel.pot4 = map(analogRead(pot4pin),0,1023,0,127);
-  currentFrontPanel.pot5 = map(analogRead(pot5pin),0,1023,0,127);
-  currentFrontPanel.pot6 = map(analogRead(pot6pin),0,1023,0,127);
-  currentFrontPanel.pot7 = map(analogRead(pot7pin),0,1023,0,127);
-  currentFrontPanel.pot8 = map(analogRead(pot8pin),0,1023,0,127);
+  currentFrontPanel.pot1 = map(analogRead(pot1pin),0,1023,0,255);
+  currentFrontPanel.pot2 = map(analogRead(pot2pin),0,1023,0,255);
+  currentFrontPanel.pot3 = map(analogRead(pot3pin),0,1023,0,255);
+  currentFrontPanel.pot4 = map(analogRead(pot4pin),0,1023,0,255);
+  currentFrontPanel.pot5 = map(analogRead(pot5pin),0,1023,0,255);
+  currentFrontPanel.pot6 = map(analogRead(pot6pin),0,1023,0,255);
+  currentFrontPanel.pot7 = map(analogRead(pot7pin),0,1023,0,255);
+  currentFrontPanel.pot8 = map(analogRead(pot8pin),0,1023,0,255);
   currentFrontPanel.button1 = !digitalRead(button1pin);
   currentFrontPanel.button2 = !digitalRead(button2pin);
   currentFrontPanel.button3 = !digitalRead(button3pin);
@@ -78,6 +80,22 @@ void fpEventHandler(){
     int newValue = showStructValue(currentFrontPanel, diffIndex);
     Serial.print("Difference at index ");Serial.print(diffIndex);
     Serial.print(" New value: ");Serial.println(newValue);
+    if (currentFrontPanel.button3 > previousFrontPanel.button3)
+    {
+      frontPanelPage++;
+    }
+    if (currentFrontPanel.button1 > previousFrontPanel.button1)
+    {
+      frontPanelPage--;
+    }
+
+    myFrontPanels[frontPanelPage] = currentFrontPanel;
     previousFrontPanel = currentFrontPanel;
   }
+}
+double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)
+{
+  double limitedOut;
+  limitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  return limitedOut;
 }
