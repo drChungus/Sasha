@@ -1,3 +1,5 @@
+frontPanel currentFrontPanel, previousFrontPanel;
+
 frontPanel readFrontPanel(){
   frontPanel currentFrontPanel;
   currentFrontPanel.pot1 = map(analogRead(pot1pin),0,1023,0,127);
@@ -62,4 +64,20 @@ double readCV(int pin){
   dataValue = (dataValue-3149.1) / -409;
 ;
   return dataValue;  
+}
+
+int getBit(int code, int posi){ //LSB based
+  int masked= ( code & (0b01<<posi) ) >> posi;
+  return masked;
+}
+
+void fpEventHandler(){
+  currentFrontPanel = readFrontPanel();
+  int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);  
+  if (diffIndex != -1){
+    int newValue = showStructValue(currentFrontPanel, diffIndex);
+    Serial.print("Difference at index ");Serial.print(diffIndex);
+    Serial.print(" New value: ");Serial.println(newValue);
+    previousFrontPanel = currentFrontPanel;
+  }
 }

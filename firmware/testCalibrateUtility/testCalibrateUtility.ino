@@ -2,10 +2,11 @@
 #include "physicalLayer.h"
 #include "initialize.h"
 #include "functions.h"
+#include "audioEngine.h"
 
 
 const int myInput = AUDIO_INPUT_LINEIN;
-frontPanel currentFrontPanel, previousFrontPanel;
+
 
 
 
@@ -30,15 +31,7 @@ void setup()
 
 void loop()
 {
-  currentFrontPanel = readFrontPanel();
-  int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);
-  
-  if (diffIndex != -1){
-    int newValue = showStructValue(currentFrontPanel, diffIndex);
-    Serial.print("Difference at index ");Serial.print(diffIndex);
-    Serial.print(" New value: ");Serial.println(newValue);
-    previousFrontPanel = currentFrontPanel;
-  }
+  fpEventHandler();
   colorCode=0b00011011;
   updateLEDs(colorCode);
   delay(0); 
