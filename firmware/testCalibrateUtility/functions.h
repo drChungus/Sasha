@@ -1,5 +1,5 @@
 frontPanel currentFrontPanel, previousFrontPanel;
-frontPanel[6] myFrontPanels;
+struct frontPanel myFrontPanels[6];
 int frontPanelPage;
 
 frontPanel readFrontPanel(){
