@@ -90,7 +90,13 @@ void fpEventHandler(){
     }
     if ((currentFrontPanel.button2 > previousFrontPanel.button2))
     {
-      setAlgorithm(algorithmLUT[0]);
+      if(currentAlgorithm < 6){
+        currentAlgorithm++;
+      }
+      else {
+        currentAlgorithm = 0;
+      }
+      setAlgorithm(algorithmLUT[currentAlgorithm]);
     }
     //Serial.println(frontPanelPage); 
     updateLEDs(fpLedLut[frontPanelPage]);
@@ -99,10 +105,10 @@ void fpEventHandler(){
       myFrontPanels[frontPanelPage][diffIndex] = currentFrontPanel[diffIndex];
       //Serial.println(myFrontPanels[frontPanelPage][diffIndex]);
     }
-    updateLevel(myFrontPanels, frontPanelPage);
+    updateLevel(currentFrontPanel, frontPanelPage);
     previousFrontPanel = currentFrontPanel;
   }
-  //setAlgorithm precondition!
+  updateFreq(myFrontPanels, frontPanelPage);
   
 }
 double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)

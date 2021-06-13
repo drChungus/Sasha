@@ -1,5 +1,7 @@
-double phaseAmt = 360.0;
-
+double phaseAmt = 720.0;
+double baseFreq = 50;
+int currentAlgorithm = 0;
+double  multiplierLUT [16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
 
 void setAlgorithm(int algorithmCode){	//Algorith code is 0b000, where mixer gains are stored in binary 
@@ -83,13 +85,28 @@ void initializeAudioEngine(){
 }
 
 
-void updateLevel(frontPanel myPanels[], int myPage){
-	waveformMod1.amplitude(scaleSimple(myPanels[1].pot3,0,255,0,1));
+/*void updateLevel(frontPanel myPanels[], int myPage){
+	waveformMod1.amplitude(scaleSimple(myPanels[1].pot3,0,255,0,1)); //need more tactilerol on levels! 
 	waveformMod2.amplitude(scaleSimple(myPanels[2].pot3,0,255,0,1));
 	waveformMod3.amplitude(scaleSimple(myPanels[3].pot3,0,255,0,1));
 	waveformMod4.amplitude(scaleSimple(myPanels[4].pot3,0,255,0,1));
+}*/
+void updateLevel(frontPanel myPanels, int myPage){
+  waveformMod1.amplitude(scaleSimple(myPanels.pot4,0,255,0,1)); //need more tactilerol on levels! 
+  waveformMod2.amplitude(scaleSimple(myPanels.pot6,0,255,0,1));
+  waveformMod3.amplitude(scaleSimple(myPanels.pot7,0,255,0,1));
+  waveformMod4.amplitude(scaleSimple(myPanels.pot8,0,255,0,1));
 }
 
 void updateWaveform(frontPanel myPanels[], int myPage){
 
+}
+
+void updateFreq (frontPanel myPanels[], int myPage){
+  baseFreq = 130.8 * pow(2,readCV(ai5pin)); //+pot detune Corse, Fine maybe??
+  //baseFreq =50;
+  waveformMod1.frequency(baseFreq*multiplierLUT[map(myPanels[1].pot2,0,255,0,15)]);
+  waveformMod2.frequency(baseFreq*multiplierLUT[map(myPanels[2].pot2,0,255,0,15)]);
+  waveformMod3.frequency(baseFreq*multiplierLUT[map(myPanels[3].pot2,0,255,0,15)]);
+  waveformMod4.frequency(baseFreq*multiplierLUT[map(myPanels[4].pot2,0,255,0,15)]);  
 }
