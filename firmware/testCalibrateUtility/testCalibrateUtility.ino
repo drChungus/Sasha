@@ -16,9 +16,11 @@ void setup()
   pinMode(button1pin,INPUT_PULLUP);
   pinMode(button2pin,INPUT_PULLUP);
   pinMode(button3pin,INPUT_PULLUP);
+  pinMode(normalizationPin, OUTPUT);
   
   Serial.begin(115200);
   analogReadResolution(analogRes);
+  digitalWrite(normalizationPin, LOW);
 	// Audio connections require memory to work.  For more
   // detailed information, see the MemoryAndCpuUsage example
   AudioMemory(12);
@@ -36,5 +38,6 @@ void loop()
   updateLEDs(colorCode);
   delay(0); 
   //Serial.println(readCV(ai5pin));
-  Serial.println(AudioProcessorUsage());
+  //Serial.println(AudioProcessorUsage()); 
+  
 }

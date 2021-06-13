@@ -3,7 +3,7 @@
 #define frontPanelCatalogElements 17  //number of elements on the frontPanel
 
 int frontPanelIndexCatalog [frontPanelCatalogElements] = {1,2,3,4,5,6,7,8,10,20,30,11,22,33,44};  //indexes of fron panele element in the struct
-
+int fpLedLut[5] = {0b10101010, 0b10010101, 0b01100101, 0b01011001, 0b01010110};
 
 struct frontPanel{
   int pot1, pot2, pot3, pot4, pot5, pot6, pot7, pot8; //Potmeters

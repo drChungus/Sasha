@@ -26,3 +26,5 @@
 #define ai4pin	A17
 #define ai5pin	A12
 #define ai6pin	A1
+
+#define normalizationPin 32
