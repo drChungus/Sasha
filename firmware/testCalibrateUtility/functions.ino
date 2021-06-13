@@ -1,6 +1,6 @@
 frontPanel currentFrontPanel, previousFrontPanel;
 struct frontPanel myFrontPanels[6];
-int frontPanelPage;
+int frontPanelPage = 1;
 
 frontPanel readFrontPanel(){
   frontPanel currentFrontPanel;
@@ -58,7 +58,7 @@ void updateLEDs(byte colorCode){
   led4.drive();
 }
 double readCV(int pin){
-  double sum;
+  double sum = 0;
   for (int i=0; i<10; i++){ ///use 10000 samples for calibration and do every voltage! It makes sense to check the voltage source with a high precision meter, as the reference can also be off!
     sum+=analogRead(pin);
   }
@@ -78,8 +78,8 @@ void fpEventHandler(){
   int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);  
   if (diffIndex != -1){
     int newValue = showStructValue(currentFrontPanel, diffIndex);
-    Serial.print("Difference at index ");Serial.print(diffIndex);
-    Serial.print(" New value: ");Serial.println(newValue);
+    //Serial.print("Difference at index ");Serial.print(diffIndex);
+    //Serial.print(" New value: ");Serial.println(newValue);
     if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (frontPanelPage < 4))
     {
       frontPanelPage++;
@@ -88,15 +88,22 @@ void fpEventHandler(){
     {
       frontPanelPage--;
     }
-    Serial.println(frontPanelPage); 
+    if ((currentFrontPanel.button2 > previousFrontPanel.button2))
+    {
+      setAlgorithm(algorithmLUT[0]);
+    }
+    //Serial.println(frontPanelPage); 
     updateLEDs(fpLedLut[frontPanelPage]);
     if (diffIndex < 10)
     {
       myFrontPanels[frontPanelPage][diffIndex] = currentFrontPanel[diffIndex];
+      //Serial.println(myFrontPanels[frontPanelPage][diffIndex]);
     }
-    
+    updateLevel(myFrontPanels, frontPanelPage);
     previousFrontPanel = currentFrontPanel;
   }
+  //setAlgorithm precondition!
+  
 }
 double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)
 {

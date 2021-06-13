@@ -1,9 +1,8 @@
 #include "audioLibraryDesign.h"
 #include "physicalLayer.h"
 #include "initialize.h"
-#include "functions.h"
-#include "audioEngine.h"
-
+//#include "audioEngine.h"
+//#include "functions.h"
 
 const int myInput = AUDIO_INPUT_LINEIN;
 
@@ -29,15 +28,15 @@ void setup()
   sgtl5000_1.enable();
   sgtl5000_1.inputSelect(myInput);
   sgtl5000_1.volume(0.8);
+  initializeAudioEngine();
 }
 
 void loop()
 {
   fpEventHandler();
-  colorCode=0b00011011;
-  updateLEDs(colorCode);
-  delay(0); 
+  //delay(0); 
   //Serial.println(readCV(ai5pin));
   //Serial.println(AudioProcessorUsage()); 
+
   
 }
