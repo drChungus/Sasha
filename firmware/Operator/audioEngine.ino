@@ -92,10 +92,10 @@ void initializeAudioEngine(){
 	waveformMod4.amplitude(scaleSimple(myPanels[4].pot3,0,255,0,1));
 }*/
 void updateLevel(frontPanel myPanel, int myPage){
-  waveformMod1.amplitude(scaleSimple(myPanel.pot4,0,255,0,1)); //need more tactile on levels! 
-  waveformMod2.amplitude(scaleSimple(myPanel.pot6,0,255,0,1));
-  waveformMod3.amplitude(scaleSimple(myPanel.pot7,0,255,0,1));
-  waveformMod4.amplitude(scaleSimple(myPanel.pot8,0,255,0,1));
+  waveformMod1.amplitude(scaleSimple(myPanel.pot4,0,255,0,1) + readModCV(ai1pin)); //need more tactile on levels! 
+  waveformMod2.amplitude(scaleSimple(myPanel.pot6,0,255,0,1) + readModCV(ai2pin));
+  waveformMod3.amplitude(scaleSimple(myPanel.pot7,0,255,0,1) + readModCV(ai3pin));
+  waveformMod4.amplitude(scaleSimple(myPanel.pot8,0,255,0,1) + readModCV(ai4pin));
 }
 
 void updateWaveform(frontPanel myPanels[], int myPage){

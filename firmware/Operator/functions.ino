@@ -64,8 +64,12 @@ double readCV(int pin){
   }
   double dataValue = sum/10;
   dataValue = (dataValue-3149.1) / -409;
-;
   return dataValue;  
+}
+double readModCV(int pin){
+  double result;
+  result = scaleSimple(analogRead(pin),0,4095,1,-1);  //note that modulation CV ins are not calibrated here
+  return result;
 }
 
 int getBit(int code, int posi){ //LSB based
@@ -105,15 +109,16 @@ void fpEventHandler(){
       myFrontPanels[frontPanelPage][diffIndex] = currentFrontPanel[diffIndex];
       //Serial.println(myFrontPanels[frontPanelPage][diffIndex]);
     }
-    updateLevel(currentFrontPanel, frontPanelPage);
+    //updateLevel(currentFrontPanel, frontPanelPage);
     previousFrontPanel = currentFrontPanel;
   }
   updateFreq(myFrontPanels, frontPanelPage);
+  updateLevel(currentFrontPanel, frontPanelPage);
   
 }
 double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)
 {
-  double limitedOut;
-  limitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-  return limitedOut;
+  double unlimitedOut;
+  unlimitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  return unlimitedOut;
 }
