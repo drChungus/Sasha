@@ -84,7 +84,7 @@ void fpEventHandler(){
     int newValue = showStructValue(currentFrontPanel, diffIndex);
     //Serial.print("Difference at index ");Serial.print(diffIndex);
     //Serial.print(" New value: ");Serial.println(newValue);
-    if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (frontPanelPage < 4))
+    if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (frontPanelPage < 7))
     {
       frontPanelPage++;
     }
@@ -94,26 +94,30 @@ void fpEventHandler(){
     }
     if ((currentFrontPanel.button2 > previousFrontPanel.button2))
     {
-      if(currentAlgorithm < 12){
-        currentAlgorithm++;
-      }
-      else {
-        currentAlgorithm = 0;
-      }
-      setAlgorithm(algorithmLUT[currentAlgorithm]);
+
+    }
+    if(diffIndex == 1){
+        int currentAlgo = scaleSimple((currentFrontPanel.pot1),0,4096,0,12);
+        setAlgorithm(algorithmLUT[currentAlgo]); //this pot is independent of the page selected
+        updateLEDs(fpLedAlgoLUT[currentAlgo]);
     }
     //Serial.println(frontPanelPage); 
-    updateLEDs(fpLedLut[frontPanelPage]);
-    if (diffIndex < 10)
+    updateLEDs(fpLedPageLut[frontPanelPage]);
+    if (diffIndex > 3 && diffIndex < 10)
     {
       myFrontPanels[frontPanelPage][diffIndex] = currentFrontPanel[diffIndex];
       //Serial.println(myFrontPanels[frontPanelPage][diffIndex]);
     }
+
     //updateLevel(currentFrontPanel, frontPanelPage);
     previousFrontPanel = currentFrontPanel;
   }
-  updateFreq(myFrontPanels, frontPanelPage);
-  updateLevel(currentFrontPanel, frontPanelPage);
+  updateLevel(myFrontPanels[1], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
+  updateFreq(myFrontPanels[2], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
+  //updateWaveform(myFrontPanels[3], frontPanelPage);
+
+  
+  
   
 }
 double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)
