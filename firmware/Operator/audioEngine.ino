@@ -91,8 +91,8 @@ void updateWaveform(frontPanel myPanels[], int myPage){
 void updateFreq (frontPanel ratioPanel, int myPage){
   baseFreq = 130.8 * pow(2,readCV(ai5pin)+scaleSimple(analogRead(pot5pin),0,4095,-2,2)); //+pot detune Corse, Fine maybe??
   //baseFreq =50;
-  waveformMod1.frequency(baseFreq*multiplierLUT[map(ratioPanel[1],0,256,0,15)]);
-  waveformMod2.frequency(baseFreq*multiplierLUT[map(ratioPanel[2],0,256,0,15)]);
-  waveformMod3.frequency(baseFreq*multiplierLUT[map(ratioPanel[3],0,256,0,15)]);
-  waveformMod4.frequency(baseFreq*multiplierLUT[map(ratioPanel[4],0,256,0,15)]);  
+  waveformMod1.frequency(baseFreq*multiplierLUT[map(ratioPanel[4],0,256,0,15)]);
+  waveformMod2.frequency(baseFreq*multiplierLUT[map(ratioPanel[6],0,256,0,15)]);
+  waveformMod3.frequency(baseFreq*multiplierLUT[map(ratioPanel[7],0,256,0,15)]);
+  waveformMod4.frequency(baseFreq*multiplierLUT[map(ratioPanel[8],0,256,0,15)]);  
 }

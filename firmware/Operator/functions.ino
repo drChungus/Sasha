@@ -82,8 +82,8 @@ void fpEventHandler(){
   int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);  
   if (diffIndex != -1){
     int newValue = showStructValue(currentFrontPanel, diffIndex);
-    //Serial.print("Difference at index ");Serial.print(diffIndex);
-    //Serial.print(" New value: ");Serial.println(newValue);
+    Serial.print("Difference at index ");Serial.print(diffIndex);
+    Serial.print(" New value: ");Serial.println(newValue);
     if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (frontPanelPage < 7))
     {
       frontPanelPage++;
@@ -97,12 +97,14 @@ void fpEventHandler(){
 
     }
     if(diffIndex == 1){
-        int currentAlgo = scaleSimple((currentFrontPanel.pot1),0,4096,0,12);
+      int currentAlgo;
+      currentAlgo=map((currentFrontPanel[1]),0,255,0,12);
         setAlgorithm(algorithmLUT[currentAlgo]); //this pot is independent of the page selected
+        Serial.println(currentAlgo);
         updateLEDs(fpLedAlgoLUT[currentAlgo]);
     }
     //Serial.println(frontPanelPage); 
-    updateLEDs(fpLedPageLut[frontPanelPage]);
+    else{updateLEDs(fpLedPageLut[frontPanelPage]);}
     if (diffIndex > 3 && diffIndex < 10)
     {
       myFrontPanels[frontPanelPage][diffIndex] = currentFrontPanel[diffIndex];
