@@ -87,10 +87,10 @@ void updateLevel(frontPanel levelPanel, frontPanel levelModPanel, int myPage){
 }
 
 void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int myPage){
-  waveformMod1.arbitraryWaveform(getWaveformArray((int) scaleSimple(waveformPanel.pot4 + waveformModPanel.pot4*readModCV(ai1pin),0,256,0,7)), 69420);
-  waveformMod2.arbitraryWaveform(getWaveformArray((int) scaleSimple(waveformPanel.pot6 + waveformModPanel.pot6*readModCV(ai2pin),0,256,0,7)), 69420);
-  waveformMod3.arbitraryWaveform(getWaveformArray((int) scaleSimple(waveformPanel.pot7 + waveformModPanel.pot7*readModCV(ai3pin),0,256,0,7)), 69420);
-  waveformMod4.arbitraryWaveform(getWaveformArray((int) scaleSimple(waveformPanel.pot8 + waveformModPanel.pot8*readModCV(ai4pin),0,256,0,7)), 69420);
+  waveformMod1.arbitraryWaveform(wave_type[((int) scaleSimple(waveformPanel.pot4 + waveformModPanel.pot4*readModCV(ai1pin),0,256,0,7))], 69420);
+  waveformMod2.arbitraryWaveform(wave_type[((int) scaleSimple(waveformPanel.pot6 + waveformModPanel.pot6*readModCV(ai2pin),0,256,0,7))], 69420);
+  waveformMod3.arbitraryWaveform(wave_type[((int) scaleSimple(waveformPanel.pot7 + waveformModPanel.pot7*readModCV(ai3pin),0,256,0,7))], 69420);
+  waveformMod4.arbitraryWaveform(wave_type[((int) scaleSimple(waveformPanel.pot8 + waveformModPanel.pot8*readModCV(ai4pin),0,256,0,7))], 69420);
 
 
 }

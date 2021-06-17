@@ -116,7 +116,7 @@ void fpEventHandler(){
   }
   updateLevel(myFrontPanels[1], myFrontPanels[4], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
   updateFreq(myFrontPanels[2], myFrontPanels[5], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
-  updateWaveform(myFrontPanels[3], myFrontPanels[6],frontPanelPage); 
+  updateWaveform(myFrontPanels[3], myFrontPanels[6],frontPanelPage); //
   
 }
 double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)
@@ -124,18 +124,4 @@ double scaleSimple(double x, double in_min, double in_max, double out_min, doubl
   double unlimitedOut;
   unlimitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   return unlimitedOut;
-}
-
-int getWaveformArray(int waveformIndex){
-  switch (waveformIndex){
-    case 1: return *AKWF_eorgan_0001;
-    case 2: return *AKWF_eorgan_0002;
-    case 3: return *AKWF_eorgan_0003;
-    case 4: return *AKWF_eorgan_0004;
-    case 5: return *AKWF_eorgan_0005;
-    case 6: return *AKWF_eorgan_0006;
-    case 7: return *AKWF_eorgan_0007;
-    default: return *AKWF_eorgan_0001;
-  }
-  
 }
