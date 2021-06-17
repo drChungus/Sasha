@@ -285,3 +285,22 @@ const int16_t AKWF_eorgan_0016[257] = {
 -20778,-19968,-19110,-18203,-17243,-16234,-15174,-14060,-12892,-11672,
 -10396, -9066, -7681, -6242, -4746, -3199, -1596,    61
 };
+
+int16_t const* waveType[16] = {
+  AKWF_eorgan_0001,
+  AKWF_eorgan_0002,
+  AKWF_eorgan_0003,
+  AKWF_eorgan_0004,
+  AKWF_eorgan_0005,
+  AKWF_eorgan_0006,
+  AKWF_eorgan_0007,
+  AKWF_eorgan_0008,
+  AKWF_eorgan_0009,
+  AKWF_eorgan_0010,
+  AKWF_eorgan_0011,
+  AKWF_eorgan_0012,
+  AKWF_eorgan_0013,
+  AKWF_eorgan_0014,
+  AKWF_eorgan_0015,
+  AKWF_eorgan_0016
+};

@@ -114,12 +114,9 @@ void fpEventHandler(){
     //updateLevel(currentFrontPanel, frontPanelPage);
     previousFrontPanel = currentFrontPanel;
   }
-  updateLevel(myFrontPanels[1], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
-  updateFreq(myFrontPanels[2], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
-  //updateWaveform(myFrontPanels[3], frontPanelPage);
-
-  
-  
+  updateLevel(myFrontPanels[1], myFrontPanels[4], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
+  updateFreq(myFrontPanels[2], myFrontPanels[5], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
+  updateWaveform(myFrontPanels[3], myFrontPanels[6],frontPanelPage); 
   
 }
 double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)
