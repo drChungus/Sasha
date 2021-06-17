@@ -9,8 +9,6 @@ const int myInput = AUDIO_INPUT_LINEIN;
 
 
 
-
-
 void setup()
 {
   pinMode(button1pin,INPUT_PULLUP);
