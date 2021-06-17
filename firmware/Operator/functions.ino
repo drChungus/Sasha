@@ -125,3 +125,17 @@ double scaleSimple(double x, double in_min, double in_max, double out_min, doubl
   unlimitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   return unlimitedOut;
 }
+
+int getWaveformArray(int waveformIndex){
+  switch (waveformIndex){
+    case 1: return AKWF_eorgan_0001;
+    case 2: return AKWF_eorgan_0002;
+    case 3: return AKWF_eorgan_0003;
+    case 4: return AKWF_eorgan_0004;
+    case 5: return AKWF_eorgan_0005;
+    case 6: return AKWF_eorgan_0006;
+    case 7: return AKWF_eorgan_0007;
+    default: return AKWF_eorgan_0001;
+  }
+  
+}

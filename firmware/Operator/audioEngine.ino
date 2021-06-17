@@ -79,18 +79,18 @@ void setAlgorithm(int algorithmCode){	//Algorith code is 0b000, where mixer gain
 
 // CV input goes like:
 // value = Pot + modPot * CV
-void updateLevel(frontPanel levelPanel, frontPanel LevelModPanel, int myPage){
+void updateLevel(frontPanel levelPanel, frontPanel levelModPanel, int myPage){
   waveformMod1.amplitude(scaleSimple(levelPanel.pot4,0,255,0,1) + scaleSimple(levelModPanel.pot4,0,255,0,1)*readModCV(ai1pin) ); //need more tactile on levels! 
   waveformMod2.amplitude(scaleSimple(levelPanel.pot6,0,255,0,1) + scaleSimple(levelModPanel.pot6,0,255,0,1)*readModCV(ai2pin) );
   waveformMod3.amplitude(scaleSimple(levelPanel.pot7,0,255,0,1) + scaleSimple(levelModPanel.pot7,0,255,0,1)*readModCV(ai3pin) );
   waveformMod4.amplitude(scaleSimple(levelPanel.pot8,0,255,0,1) + scaleSimple(levelModPanel.pot8,0,255,0,1)*readModCV(ai4pin) );
 }
 
-void updateWaveform(frontPanel myPanels[], int myPage){
-  waveformMod1.arbitraryWaveform(waveType [map(frontPanel waveformPanel.pot4 + waveformModPanel.pot4*readModCV(ai1pin),0,256,0,7)], 69420);
-  waveformMod2.arbitraryWaveform(waveType [map(frontPanel waveformPanel.pot6 + waveformModPanel.pot6*readModCV(ai2pin),0,256,0,7)], 69420);
-  waveformMod3.arbitraryWaveform(waveType [map(frontPanel waveformPanel.pot7 + waveformModPanel.pot7*readModCV(ai3pin),0,256,0,7)], 69420);
-  waveformMod4.arbitraryWaveform(waveType [map(frontPanel waveformPanel.pot8 + waveformModPanel.pot8*readModCV(ai4pin),0,256,0,7)], 69420);
+void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int myPage){
+  waveformMod1.arbitraryWaveform(getWaveformArray( map(waveformPanel.pot4 + waveformModPanel.pot4*readModCV(ai1pin),0,256,0,7)), 69420);
+  waveformMod2.arbitraryWaveform(getWaveformArray( map(waveformPanel.pot6 + waveformModPanel.pot6*readModCV(ai2pin),0,256,0,7)), 69420);
+  waveformMod3.arbitraryWaveform(getWaveformArray( map(waveformPanel.pot7 + waveformModPanel.pot7*readModCV(ai3pin),0,256,0,7)), 69420);
+  waveformMod4.arbitraryWaveform(getWaveformArray( map(waveformPanel.pot8 + waveformModPanel.pot8*readModCV(ai4pin),0,256,0,7)), 69420);
 
 
 }
@@ -98,8 +98,8 @@ void updateWaveform(frontPanel myPanels[], int myPage){
 void updateFreq (frontPanel ratioPanel, frontPanel ratioModPanel, int myPage){
   baseFreq = 130.8 * pow(2,readCV(ai5pin)+scaleSimple(analogRead(pot5pin),0,4095,-2,2)); //+pot detune Corse, Fine maybe??
   //baseFreq =50;
-  waveformMod1.frequency(baseFreq * (multiplierLUT[map(ratioPanel[4] + ratioModPanel[4]*readModCV(ai1pin),0,256,0,15)]));
-  waveformMod2.frequency(baseFreq * (multiplierLUT[map(ratioPanel[6] + ratioModPanel[5]*readModCV(ai2pin),0,256,0,15)]));
-  waveformMod3.frequency(baseFreq * (multiplierLUT[map(ratioPanel[7] + ratioModPanel[6]*readModCV(ai3pin),0,256,0,15)]));
-  waveformMod4.frequency(baseFreq * (multiplierLUT[map(ratioPanel[8] + ratioModPanel[7]*readModCV(ai4pin),0,256,0,15)]));  
+  waveformMod1.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[4] + ratioModPanel[4]*readModCV(ai1pin),0,256,0,15)]));
+  waveformMod2.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[6] + ratioModPanel[5]*readModCV(ai2pin),0,256,0,15)]));
+  waveformMod3.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[7] + ratioModPanel[6]*readModCV(ai3pin),0,256,0,15)]));
+  waveformMod4.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[8] + ratioModPanel[7]*readModCV(ai4pin),0,256,0,15)]));  
 }
