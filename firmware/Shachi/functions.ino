@@ -88,17 +88,22 @@ void fpEventHandler(){
     {
       frontPanelPage++;
     }
-    if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (frontPanelPage > 0))
+    if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (frontPanelPage > 1))
     {
       frontPanelPage--;
     }
     if ((currentFrontPanel.button2 > previousFrontPanel.button2))
     {
-
+      if (frontPanelPage < 4){
+        frontPanelPage+=3;
+      }
+      else if (frontPanelPage > 3){
+        frontPanelPage-=3;
+      }
     }
     if(diffIndex == 1){
       int currentAlgo;
-      currentAlgo=map((currentFrontPanel[1]),0,255,0,12);
+      currentAlgo=map((currentFrontPanel[1]),0,255,0,5);
         setAlgorithm(algorithmLUT[currentAlgo]); //this pot is independent of the page selected
         Serial.println(currentAlgo);
         updateLEDs(fpLedAlgoLUT[currentAlgo]);
@@ -116,7 +121,9 @@ void fpEventHandler(){
   }
   updateLevel(myFrontPanels[1], myFrontPanels[4], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
   updateFreq(myFrontPanels[2], myFrontPanels[5], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
-  //updateWaveform(myFrontPanels[3], myFrontPanels[6],frontPanelPage); //
+  updateWaveform(myFrontPanels[3], myFrontPanels[6],frontPanelPage); //
+
+  updateFilter(currentFrontPanel); 
   
 }
 double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)

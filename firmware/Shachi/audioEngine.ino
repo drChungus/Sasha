@@ -8,10 +8,10 @@ void initializeAudioEngine(){
 	waveformMod2.begin(1,50,WAVEFORM_ARBITRARY);
 	waveformMod3.begin(1,50,WAVEFORM_ARBITRARY);
 	waveformMod4.begin(1,50,WAVEFORM_ARBITRARY);
-  waveformMod1.arbitraryWaveform(wave_type[1],420);
-  waveformMod2.arbitraryWaveform(wave_type[1],420);
-  waveformMod3.arbitraryWaveform(wave_type[1],420);
-  waveformMod4.arbitraryWaveform(wave_type[1],420);
+  waveformMod1.arbitraryWaveform(wave_type[0],420);
+  waveformMod2.arbitraryWaveform(wave_type[0],420);
+  waveformMod3.arbitraryWaveform(wave_type[0],420);
+  waveformMod4.arbitraryWaveform(wave_type[0],420);
   /*waveformMod1.begin(1,50,WAVEFORM_SINE);
   waveformMod2.begin(1,50,WAVEFORM_SINE);
   waveformMod3.begin(1,50,WAVEFORM_SINE);
@@ -87,24 +87,30 @@ void updateLevel(frontPanel levelPanel, frontPanel levelModPanel, int myPage){
   waveformMod2.amplitude(scaleSimple(levelPanel.pot6,0,255,0,1) + scaleSimple(levelModPanel.pot6,0,255,0,1)*readModCV(ai2pin) );
   waveformMod3.amplitude(scaleSimple(levelPanel.pot7,0,255,0,1) + scaleSimple(levelModPanel.pot7,0,255,0,1)*readModCV(ai3pin) );
   waveformMod4.amplitude(scaleSimple(levelPanel.pot8,0,255,0,1) + scaleSimple(levelModPanel.pot8,0,255,0,1)*readModCV(ai4pin) );
-  Serial.println("Level Update completed");
-}
-
-void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int myPage){
-  waveformMod1.arbitraryWaveform(wave_type[((int) scaleSimple(waveformPanel.pot4 + waveformModPanel.pot4*readModCV(ai1pin),0,256,0,7))], 420);
-  waveformMod2.arbitraryWaveform(wave_type[((int) scaleSimple(waveformPanel.pot6 + waveformModPanel.pot6*readModCV(ai2pin),0,256,0,7))], 420);
-  waveformMod3.arbitraryWaveform(wave_type[((int) scaleSimple(waveformPanel.pot7 + waveformModPanel.pot7*readModCV(ai3pin),0,256,0,7))], 420);
-  waveformMod4.arbitraryWaveform(wave_type[((int) scaleSimple(waveformPanel.pot8 + waveformModPanel.pot8*readModCV(ai4pin),0,256,0,7))], 420);
-  Serial.println("Waveform Update completed");
-
+  //Serial.println("Level Update completed");
 }
 
 void updateFreq (frontPanel ratioPanel, frontPanel ratioModPanel, int myPage){
   baseFreq = 130.8 * pow(2,readCV(ai5pin)+scaleSimple(analogRead(pot5pin),0,4095,-2,2)); //+pot detune Corse, Fine maybe??
   //baseFreq =50;
   waveformMod1.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[4] + ratioModPanel[4]*readModCV(ai1pin),0,256,0,15)]));
-  waveformMod2.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[6] + ratioModPanel[5]*readModCV(ai2pin),0,256,0,15)]));
-  waveformMod3.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[7] + ratioModPanel[6]*readModCV(ai3pin),0,256,0,15)]));
-  waveformMod4.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[8] + ratioModPanel[7]*readModCV(ai4pin),0,256,0,15)]));  
-  Serial.println("Frequency Update completed");
+  waveformMod2.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[6] + ratioModPanel[6]*readModCV(ai2pin),0,256,0,15)]));
+  waveformMod3.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[7] + ratioModPanel[7]*readModCV(ai3pin),0,256,0,15)]));
+  waveformMod4.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(ratioPanel[8] + ratioModPanel[8]*readModCV(ai4pin),0,256,0,15)]));  
+  //Serial.println("Frequency Update completed");
+}
+
+void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int myPage){
+  Serial.print("Starting Waveform Upadate:  ");
+  Serial.print((int)scaleSimple(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,5));
+  //waveformMod1.arbitraryWaveform(wave_type[(int) scaleSimple(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,7)], 420);
+  //waveformMod2.arbitraryWaveform(wave_type[(int) scaleSimple(waveformPanel[6] + waveformModPanel[6]*readModCV(ai2pin),0,256,0,7)], 420);
+  //waveformMod3.arbitraryWaveform(wave_type[(int) scaleSimple(waveformPanel[7] + waveformModPanel[7]*readModCV(ai3pin),0,256,0,7)], 420);
+  //waveformMod4.arbitraryWaveform(wave_type[(int) scaleSimple(waveformPanel[8] + waveformModPanel[8]*readModCV(ai4pin),0,256,0,7)], 420);
+  Serial.print("Waveform Update completed. New Waveform: ");Serial.println(((int) scaleSimple(waveformPanel.pot8 + waveformModPanel.pot8*readModCV(ai4pin),0,256,0,7)));
+}
+
+void updateFilter(frontPanel myFrontPanel){  
+  filter1.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
+  filter1.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
 }

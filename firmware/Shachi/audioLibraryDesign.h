@@ -5,30 +5,32 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AudioInputI2S            i2s2;           //xy=68,105
-AudioMixer4              mixer1;         //xy=241,217
-AudioMixer4              mixer2;         //xy=243,321
-AudioMixer4              mixer3;         //xy=244,411
-AudioMixer4              mixer4;         //xy=246,502
-AudioSynthWaveformModulated waveformMod3;   //xy=420,417
-AudioSynthWaveformModulated waveformMod4;   //xy=420,509
-AudioSynthWaveformModulated waveformMod2;   //xy=422,327
-AudioSynthWaveformModulated waveformMod1;   //xy=423,224
-AudioAmplifier           amp3;           //xy=564,458
-AudioAmplifier           amp4;           //xy=564,550
-AudioAmplifier           amp2;           //xy=566,368
-AudioAmplifier           amp1;           //xy=568,265
-AudioEffectEnvelope      envelope3;      //xy=577,417
-AudioEffectEnvelope      envelope4;      //xy=577,509
-AudioEffectEnvelope      envelope2;      //xy=579,327
-AudioEffectEnvelope      envelope1;      //xy=581,225
-AudioMixer4              mixer13;        //xy=720,436
-AudioMixer4              mixer14;        //xy=720,528
-AudioMixer4              mixer12;        //xy=722,346
-AudioMixer4              mixer11;        //xy=724,244
-AudioMixer4              mixerL;         //xy=974,348
-AudioMixer4              mixerR;         //xy=975,453
-AudioOutputI2S           i2s1;           //xy=1138,403
+AudioInputI2S            i2s2;           //xy=85,81
+AudioMixer4              mixer1;         //xy=258,193
+AudioMixer4              mixer2;         //xy=260,297
+AudioMixer4              mixer3;         //xy=261,387
+AudioMixer4              mixer4;         //xy=263,478
+AudioSynthWaveformModulated waveformMod3;   //xy=437,393
+AudioSynthWaveformModulated waveformMod4;   //xy=437,485
+AudioSynthWaveformModulated waveformMod2;   //xy=439,303
+AudioSynthWaveformModulated waveformMod1;   //xy=440,200
+AudioAmplifier           amp3;           //xy=581,434
+AudioAmplifier           amp4;           //xy=581,526
+AudioAmplifier           amp2;           //xy=583,344
+AudioAmplifier           amp1;           //xy=585,241
+AudioEffectEnvelope      envelope3;      //xy=594,393
+AudioEffectEnvelope      envelope4;      //xy=594,485
+AudioEffectEnvelope      envelope2;      //xy=596,303
+AudioEffectEnvelope      envelope1;      //xy=598,201
+AudioMixer4              mixer13;        //xy=737,412
+AudioMixer4              mixer14;        //xy=737,504
+AudioMixer4              mixer12;        //xy=739,322
+AudioMixer4              mixer11;        //xy=741,220
+AudioMixer4              mixerL;         //xy=991,324
+AudioMixer4              mixerR;         //xy=992,429
+AudioFilterStateVariable filter2;        //xy=1149,435
+AudioFilterStateVariable filter1;        //xy=1153,332
+AudioOutputI2S           i2s1;           //xy=1306,383
 AudioConnection          patchCord1(mixer1, 0, waveformMod1, 0);
 AudioConnection          patchCord2(mixer2, 0, waveformMod2, 0);
 AudioConnection          patchCord3(mixer3, 0, waveformMod3, 0);
@@ -73,7 +75,9 @@ AudioConnection          patchCord41(mixer11, 0, mixer3, 0);
 AudioConnection          patchCord42(mixer11, 0, mixer4, 0);
 AudioConnection          patchCord43(mixer11, 0, mixerL, 0);
 AudioConnection          patchCord44(mixer11, 0, mixerR, 0);
-AudioConnection          patchCord45(mixerL, 0, i2s1, 0);
-AudioConnection          patchCord46(mixerR, 0, i2s1, 1);
-AudioControlSGTL5000     sgtl5000_1;     //xy=1119,134
+AudioConnection          patchCord45(mixerL, 0, filter1, 0);
+AudioConnection          patchCord46(mixerR, 0, filter2, 0);
+AudioConnection          patchCord47(filter2, 0, i2s1, 1);
+AudioConnection          patchCord48(filter1, 0, i2s1, 0);
+AudioControlSGTL5000     sgtl5000_1;     //xy=1136,110
 // GUItool: end automatically generated code
