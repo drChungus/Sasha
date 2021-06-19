@@ -16,7 +16,7 @@ void setup()
   pinMode(button3pin,INPUT_PULLUP);
   pinMode(normalizationPin, OUTPUT);
   
-  Serial.begin(115200);
+  //Serial.begin(115200);
   analogReadResolution(analogRes);
   digitalWrite(normalizationPin, LOW);
 	// Audio connections require memory to work.  For more

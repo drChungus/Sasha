@@ -1,7 +1,16 @@
 frontPanel currentFrontPanel, previousFrontPanel;
-struct frontPanel myFrontPanels[6];
+struct frontPanel myFrontPanels[8];
 int frontPanelPage = 1;
 
+void initFrontPanels (frontPanel myFrontPanels[]){
+  for(int i=0; i<6; i++){
+    myFrontPanels[i].pot4 = 0;
+    myFrontPanels[i].pot5 = 0;
+    myFrontPanels[i].pot6 = 0;
+    myFrontPanels[i].pot7 = 0;
+    myFrontPanels[i].pot8 = 0;
+  }
+}
 frontPanel readFrontPanel(){
   frontPanel currentFrontPanel;
   currentFrontPanel.pot1 = map(analogRead(pot1pin),0,4095,0,255);
@@ -121,14 +130,28 @@ void fpEventHandler(){
   }
   updateLevel(myFrontPanels[1], myFrontPanels[4], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
   updateFreq(myFrontPanels[2], myFrontPanels[5], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
-  updateWaveform(myFrontPanels[3], myFrontPanels[6],frontPanelPage); //
+  updateWaveform(myFrontPanels[3], myFrontPanels[6], frontPanelPage); //
 
   updateFilter(currentFrontPanel); 
   
 }
+
 double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)
 {
   double unlimitedOut;
   unlimitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   return unlimitedOut;
+}
+
+double scaleLimited(double x, double in_min, double in_max, double out_min, double out_max)
+{
+  double limitedOut;
+  limitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+  if (limitedOut > out_max){
+    limitedOut = out_max;
+  }
+  else if ( limitedOut < out_min){
+    limitedOut = out_min;
+  }
+  return limitedOut;
 }

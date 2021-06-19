@@ -43,7 +43,7 @@ void initializeAudioEngine(){
   for (int i=0; i<4; i++){
     mixerR.gain(i,0);
   }
-  
+   
 }
 
 void setAlgorithm(int algorithmCode){	//Algorith code is 0b000, where mixer gains are stored in binary 
@@ -102,13 +102,12 @@ void updateFreq (frontPanel ratioPanel, frontPanel ratioModPanel, int myPage){
 
 void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int myPage){
   Serial.print("Starting Waveform Upadate:  ");
-  Serial.print((int)scaleSimple(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,5));
-  //waveformMod1.arbitraryWaveform(wave_type[(int) scaleSimple(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,7)], 420);
-  //waveformMod2.arbitraryWaveform(wave_type[(int) scaleSimple(waveformPanel[6] + waveformModPanel[6]*readModCV(ai2pin),0,256,0,7)], 420);
-  //waveformMod3.arbitraryWaveform(wave_type[(int) scaleSimple(waveformPanel[7] + waveformModPanel[7]*readModCV(ai3pin),0,256,0,7)], 420);
-  //waveformMod4.arbitraryWaveform(wave_type[(int) scaleSimple(waveformPanel[8] + waveformModPanel[8]*readModCV(ai4pin),0,256,0,7)], 420);
-  Serial.print("Waveform Update completed. New Waveform: ");Serial.println(((int) scaleSimple(waveformPanel.pot8 + waveformModPanel.pot8*readModCV(ai4pin),0,256,0,7)));
-}
+  Serial.println((int)scaleLimited(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,6));
+  waveformMod1.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,6)], 420);
+  waveformMod2.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[6] + waveformModPanel[6]*readModCV(ai2pin),0,256,0,6)], 420);
+  waveformMod3.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[7] + waveformModPanel[7]*readModCV(ai3pin),0,256,0,6)], 420);
+  waveformMod4.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[8] + waveformModPanel[8]*readModCV(ai4pin),0,256,0,6)], 420);
+ }
 
 void updateFilter(frontPanel myFrontPanel){  
   filter1.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
