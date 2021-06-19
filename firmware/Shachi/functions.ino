@@ -1,5 +1,6 @@
 frontPanel currentFrontPanel, previousFrontPanel;
 struct frontPanel myFrontPanels[8];
+int frontPanelPage = 1;
 
 void initFrontPanels (frontPanel myFrontPanels[]){
   for(int i=0; i<6; i++){
@@ -10,7 +11,6 @@ void initFrontPanels (frontPanel myFrontPanels[]){
     myFrontPanels[i].pot8 = 0;
   }
 }
-
 frontPanel readFrontPanel(){
   frontPanel currentFrontPanel;
   currentFrontPanel.pot1 = map(analogRead(pot1pin),0,4095,0,255);
@@ -26,6 +26,7 @@ frontPanel readFrontPanel(){
   currentFrontPanel.button3 = !digitalRead(button3pin);
   return currentFrontPanel;
 };
+
 
 int searchStructDiffIndex (frontPanel s1, frontPanel s2){
     int diffIndex = -1;
@@ -95,12 +96,10 @@ void fpEventHandler(){
     if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (frontPanelPage < 7))
     {
       frontPanelPage++;
-      EEPROM.put(0,frontPanelPage);
     }
     if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (frontPanelPage > 1))
     {
       frontPanelPage--;
-      EEPROM.put(0,frontPanelPage);
     }
     if ((currentFrontPanel.button2 > previousFrontPanel.button2))
     {
@@ -110,14 +109,13 @@ void fpEventHandler(){
       else if (frontPanelPage > 3){
         frontPanelPage-=3;
       }
-      EEPROM.put(0,frontPanelPage);
     }
     if(diffIndex == 1){
       int currentAlgo;
-      currentAlgo = map((currentFrontPanel[1]),0,255,0,10);
-      setAlgorithm(algorithmLUT[currentAlgo]); //this pot is independent of the page selected
-      Serial.println(currentAlgo);
-      updateLEDs(fpLedAlgoLUT[currentAlgo]);
+      currentAlgo=map((currentFrontPanel[1]),0,255,0,5);
+        setAlgorithm(algorithmLUT[currentAlgo]); //this pot is independent of the page selected
+        Serial.println(currentAlgo);
+        updateLEDs(fpLedAlgoLUT[currentAlgo]);
     }
     //Serial.println(frontPanelPage); 
     else{updateLEDs(fpLedPageLut[frontPanelPage]);}
@@ -156,14 +154,4 @@ double scaleLimited(double x, double in_min, double in_max, double out_min, doub
     limitedOut = out_min;
   }
   return limitedOut;
-}
-
-void saveParams(int eeAddress, int customVar){
-  customVar++;
-  EEPROM.put(eeAddress, customVar);
-}
- 
-void loadParams(int eeAddress, int customVar){
-  EEPROM.get(eeAddress, customVar);
-  Serial.println(customVar);
 }
