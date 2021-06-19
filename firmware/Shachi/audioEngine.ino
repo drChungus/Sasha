@@ -101,12 +101,12 @@ void updateFreq (frontPanel ratioPanel, frontPanel ratioModPanel, int myPage){
 }
 
 void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int myPage){
-  Serial.print("Starting Waveform Upadate:  ");
-  Serial.println((int)scaleLimited(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,6));
-  waveformMod1.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,6)], 420);
-  waveformMod2.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[6] + waveformModPanel[6]*readModCV(ai2pin),0,256,0,6)], 420);
-  waveformMod3.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[7] + waveformModPanel[7]*readModCV(ai3pin),0,256,0,6)], 420);
-  waveformMod4.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[8] + waveformModPanel[8]*readModCV(ai4pin),0,256,0,6)], 420);
+  //Serial.print("Starting Waveform Upadate:  ");
+  //Serial.println((int)scaleLimited(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,6));
+  waveformMod1.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[4] + waveformModPanel[4]*readModCV(ai1pin),0,256,0,10)], 420);
+  waveformMod2.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[6] + waveformModPanel[6]*readModCV(ai2pin),0,256,0,10)], 420);
+  waveformMod3.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[7] + waveformModPanel[7]*readModCV(ai3pin),0,256,0,10)], 420);
+  waveformMod4.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[8] + waveformModPanel[8]*readModCV(ai4pin),0,256,0,10)], 420);
  }
 
 void updateFilter(frontPanel myFrontPanel){  
