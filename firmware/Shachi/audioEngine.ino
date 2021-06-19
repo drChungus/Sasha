@@ -111,5 +111,5 @@ void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int m
 
 void updateFilter(frontPanel myFrontPanel){  
   filter1.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
-  filter1.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
+  filter2.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
 }

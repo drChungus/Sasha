@@ -111,6 +111,8 @@ void fpEventHandler(){
         frontPanelPage-=3;
       }
       EEPROM.put(0,frontPanelPage);
+
+      saveParams(1, myFrontPanels);
     }
     if(diffIndex == 1){
       int currentAlgo;
@@ -158,12 +160,25 @@ double scaleLimited(double x, double in_min, double in_max, double out_min, doub
   return limitedOut;
 }
 
-void saveParams(int eeAddress, int customVar){
-  customVar++;
-  EEPROM.put(eeAddress, customVar);
+void saveParams(int eeAddress, frontPanel customVar[]){
+  for (int i=0; i < 8; i++){
+    EEPROM.put(eeAddress+i, customVar[i]);
+  }  
 }
  
-void loadParams(int eeAddress, int customVar){
-  EEPROM.get(eeAddress, customVar);
-  Serial.println(customVar);
+void loadParams(int eeAddress, frontPanel customVar[]){
+  for (int i=0; i < 8; i++){
+    Serial.println("Started EEPROM panel Read");
+    EEPROM.get(eeAddress+i, customVar[i]);
+  }
+}
+
+void initFromMemory(){
+  EEPROM.get(0,frontPanelPage);
+  loadParams(1, myFrontPanels);
+  setAlgorithm(algorithmLUT[map(analogRead(pot1pin),0,4095,0,10)]);
+  updateLevel(myFrontPanels[1], myFrontPanels[4], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
+  updateFreq(myFrontPanels[2], myFrontPanels[5], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
+  updateWaveform(myFrontPanels[3], myFrontPanels[6], frontPanelPage); //
+  updateFilter(currentFrontPanel); 
 }
