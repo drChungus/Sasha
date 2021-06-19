@@ -28,6 +28,9 @@ void setup()
   sgtl5000_1.inputSelect(myInput);
   sgtl5000_1.volume(0.8);
   initializeAudioEngine();
+  
+  EEPROM.get(0,frontPanelPage);
+  setAlgorithm(algorithmLUT[map(analogRead(pot1pin),0,4095,0,10)]);
 }
 
 void loop()
