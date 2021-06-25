@@ -1,9 +1,10 @@
-#include <Audio.h>
-#include <Wire.h>
-#include <SPI.h>
-#include <SerialFlash.h>
-#include "structure.h"
+#include "audioLibraryDesign.h"
+#include "audioEngine.h"
+#include "physicalLayer.h"
 #include "init.h"
+
+
+
 //#include "first256.h"
 
 
@@ -32,40 +33,29 @@ void setup() {
   //  QUALITY
   //  TUNE
 
-  voice1.begin(WAVEFORM_SINE);
-  voice1.amplitude(1);
-  voice1.pulseWidth(0.5);
-  voice2.begin(WAVEFORM_SINE);
-  voice2.amplitude(1);
-  voice2.pulseWidth(0.5);
-  voice3.begin(WAVEFORM_SINE);
-  voice3.amplitude(1);
-  voice3.pulseWidth(0.5);
-  voice4.begin(WAVEFORM_SINE);
-  voice4.amplitude(1);
-  voice4.pulseWidth(0.5);
+  initAudioEngine();
+  
 
-  for (int i = 0; i < 4; i++) {
-    mixer.gain(i, 0.25);
-  }
 
-  Serial.begin(9600);
+
+  Serial.begin(115200);
+  analogReadResolution(12);
 }
 
 void loop() {
 
-  currentWaveform = map(analogRead(A14), 0, 1004, 0, 5);
-  currentVoicing = map(analogRead(A15), 0, 1007, 0, 3);
-  currentInversion = map(analogRead(A16), 0, 1001, 0, 3);
-  currentQuality = map(analogRead(A18), 0, 1010, 0, 3);
-  TUNEpot = analogRead(A17);
+  currentWaveform = map(analogRead(pot4pin), 0, 4096, 0, 5);
+  currentVoicing = map(analogRead(pot6pin), 0, 4096, 0, 3);
+  currentInversion = map(analogRead(pot7pin), 0, 4096, 0, 3);
+  currentQuality = map(analogRead(pot8pin), 0, 4096, 0, 3);
+  TUNEpot = analogRead(pot5pin);
 
 
-  cvIn = analogRead(A20);
+  //cvIn = analogRead(A20);
 
-  // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 3.3V):
-  double voltage = cvIn * (3.3 / 1023.0);
-  int rootNote =  12 * voltage + 17  + scale(TUNEpot, 0, 1000, -24, 24);
+  // Convert the analog reading:
+  double voltage = readCV(ai5pin);
+  int rootNote =  12 * voltage + 17  + scaleSimple(TUNEpot, 0, 4096, -24, 24);
   if (analogRead(A18)>1004){
     currentQuality = harmonization[0][harmonise(voltage)];
   }
@@ -93,24 +83,6 @@ void loop() {
 
 }
 
-double scale(double x, double in_min, double in_max, double out_min, double out_max)
-{
-  double limitedOut;
-  limitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-  if (limitedOut > out_max) {
-    limitedOut = out_max;
-  }
-  if (limitedOut < out_min) {
-    limitedOut = out_min;
-  }
-  return limitedOut;
-}
-double scaleSimple(double x, double in_min, double in_max, double out_min, double out_max)
-{
-  double limitedOut;
-  limitedOut = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-  return limitedOut;
-}
 
 void showStat()
 {
