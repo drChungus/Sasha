@@ -38,16 +38,16 @@ void setup() {
 
 
 
-  Serial.begin(115200);
+  //Serial.begin(115200);
   analogReadResolution(12);
 }
 
 void loop() {
 
-  currentWaveform = map(analogRead(pot4pin), 0, 4096, 0, 5);
-  currentVoicing = map(analogRead(pot6pin), 0, 4096, 0, 3);
-  currentInversion = map(analogRead(pot7pin), 0, 4096, 0, 3);
-  currentQuality = map(analogRead(pot8pin), 0, 4096, 0, 3);
+  currentWaveform = map(analogRead(pot4pin), 0, 4095, 0, 5);
+  currentVoicing = map(analogRead(pot6pin), 0, 4095, 0, 3);
+  currentInversion = map(analogRead(pot7pin), 0, 4095, 0, 3);
+  currentQuality = map(analogRead(pot8pin), 0, 4095, 0, 3);
   TUNEpot = analogRead(pot5pin);
 
 
