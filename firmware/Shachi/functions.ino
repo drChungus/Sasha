@@ -92,34 +92,22 @@ void fpEventHandler(){
     int newValue = showStructValue(currentFrontPanel, diffIndex);
     Serial.print("Difference at index ");Serial.print(diffIndex);
     Serial.print(" New value: ");Serial.println(newValue);
-    if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (frontPanelPage < 7))
+    if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (octaveSwitch < 5))
     {
-      frontPanelPage++;
-      EEPROM.put(0,frontPanelPage);
+      octaveSwitch++;
+      //EEPROM.put(0,frontPanelPage);
     }
-    if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (frontPanelPage > 1))
+    if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (octaveSwitch > 1))
     {
-      frontPanelPage--;
-      EEPROM.put(0,frontPanelPage);
+      octaveSwitch--;
+      //EEPROM.put(0,frontPanelPage);
     }
     if ((currentFrontPanel.button2 > previousFrontPanel.button2))
     {
-      if (frontPanelPage < 4){
-        frontPanelPage+=3;
-      }
-      else if (frontPanelPage > 3){
-        frontPanelPage-=3;
-      }
-      EEPROM.put(0,frontPanelPage);
 
-      saveParams(1, myFrontPanels);
     }
     if(diffIndex == 1){
-      int currentAlgo;
-      currentAlgo = map((currentFrontPanel[1]),0,255,0,10);
-      setAlgorithm(algorithmLUT[currentAlgo]); //this pot is independent of the page selected
-      Serial.println(currentAlgo);
-      updateLEDs(fpLedAlgoLUT[currentAlgo]);
+
     }
     //Serial.println(frontPanelPage); 
     else{updateLEDs(fpLedPageLut[frontPanelPage]);}
@@ -132,11 +120,14 @@ void fpEventHandler(){
     //updateLevel(currentFrontPanel, frontPanelPage);
     previousFrontPanel = currentFrontPanel;
   }
-  updateLevel(myFrontPanels[1], myFrontPanels[4], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
-  updateFreq(myFrontPanels[2], myFrontPanels[5], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
-  updateWaveform(myFrontPanels[3], myFrontPanels[6], frontPanelPage); //
+  //updateLevel(myFrontPanels[1], myFrontPanels[4], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
+  //updateFreq(myFrontPanels[2], myFrontPanels[5], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
+  //updateWaveform(myFrontPanels[3], myFrontPanels[6], frontPanelPage); //
 
   updateFilter(currentFrontPanel); 
+  updateIndex(currentFrontPanel);
+  updateShape(currentFrontPanel);
+  updateFrequency(currentFrontPanel);
   
 }
 
@@ -162,23 +153,17 @@ double scaleLimited(double x, double in_min, double in_max, double out_min, doub
 
 void saveParams(int eeAddress, frontPanel customVar[]){
   for (int i=0; i < 8; i++){
-    EEPROM.put(eeAddress+i, customVar[i]);
+    //EEPROM.put(eeAddress+i, customVar[i]);
   }  
 }
  
 void loadParams(int eeAddress, frontPanel customVar[]){
   for (int i=0; i < 8; i++){
     Serial.println("Started EEPROM panel Read");
-    EEPROM.get(eeAddress+i, customVar[i]);
+    //EEPROM.get(eeAddress+i, customVar[i]);
   }
 }
 
 void initFromMemory(){
-  EEPROM.get(0,frontPanelPage);
-  loadParams(1, myFrontPanels);
-  setAlgorithm(algorithmLUT[map(analogRead(pot1pin),0,4095,0,10)]);
-  updateLevel(myFrontPanels[1], myFrontPanels[4], frontPanelPage);  //this pot depends on what page is selected, but updated based with cv too!
-  updateFreq(myFrontPanels[2], myFrontPanels[5], frontPanelPage);   //this pot depends on what page is selected, but updated based with cv too!
-  updateWaveform(myFrontPanels[3], myFrontPanels[6], frontPanelPage); //
-  updateFilter(currentFrontPanel); 
+  
 }

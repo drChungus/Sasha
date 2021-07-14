@@ -1,17 +1,15 @@
 double phaseAmt = 720.0;
 double baseFreq = 50;
-int currentAlgorithm = 0;
+int octaveSwitch = 0;
 double  multiplierLUT [16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
 void initializeAudioEngine(){
 	waveformMod1.begin(1,50,WAVEFORM_ARBITRARY);
 	waveformMod2.begin(1,50,WAVEFORM_ARBITRARY);
-	waveformMod3.begin(1,50,WAVEFORM_ARBITRARY);
-	waveformMod4.begin(1,50,WAVEFORM_ARBITRARY);
+
   waveformMod1.arbitraryWaveform(wave_type[0],420);
   waveformMod2.arbitraryWaveform(wave_type[0],420);
-  waveformMod3.arbitraryWaveform(wave_type[0],420);
-  waveformMod4.arbitraryWaveform(wave_type[0],420);
+
   /*waveformMod1.begin(1,50,WAVEFORM_SINE);
   waveformMod2.begin(1,50,WAVEFORM_SINE);
   waveformMod3.begin(1,50,WAVEFORM_SINE);
@@ -19,67 +17,16 @@ void initializeAudioEngine(){
   
 	waveformMod1.phaseModulation(phaseAmt);
 	waveformMod2.phaseModulation(phaseAmt);
-	waveformMod3.phaseModulation(phaseAmt);
-	waveformMod4.phaseModulation(phaseAmt);
+
   amp1.gain(1);
   amp2.gain(1);
-  amp3.gain(1);
-  amp4.gain(1);
-  for (int i=0; i<4; i++){
-    mixer1.gain(i,0);
-  }
-  for (int i=0; i<4; i++){
-    mixer2.gain(i,0);
-  }
-  for (int i=0; i<4; i++){
-    mixer3.gain(i,0);
-  }
-  for (int i=0; i<4; i++){
-    mixer4.gain(i,0);
-  }
-  for (int i=0; i<4; i++){
-    mixerL.gain(i,0);
-  }
-  for (int i=0; i<4; i++){
-    mixerR.gain(i,0);
-  }
+
    
 }
 
-void setAlgorithm(int algorithmCode){	//Algorith code is 0b000, where mixer gains are stored in binary 
-	for (int i = 0; i < 4; ++i)	
-	{
-	 mixer1.gain(i, getBit(algorithmCode,23-i));			//channel, gain
-   Serial.print(getBit(algorithmCode,23-i));
-	}
-	for (int i = 0; i < 4; ++i)	
-	{
-	 mixer2.gain(i,getBit(algorithmCode,19-i));			//channel, gain
-   Serial.print(getBit(algorithmCode,19-i));
-	}
-	for (int i = 0; i < 4; ++i)	
-	{
-	 mixer3.gain(i,getBit(algorithmCode,15-i));			//channel, gain
-   Serial.print(getBit(algorithmCode,15-i));
-	}
-	for (int i = 0; i < 4; ++i)	
-	{
-	 mixer4.gain(i,getBit(algorithmCode,11-i));			//channel, gain
-   Serial.print(getBit(algorithmCode,11-i));
-	}
-	for (int i = 0; i < 4; ++i)	
-	{
-	 mixerL.gain(i,getBit(algorithmCode,7-i));			//channel, gain
-   Serial.print(getBit(algorithmCode,7-i));
-	}
-	for (int i = 0; i < 4; ++i)	
-	{
-   mixerR.gain(i,getBit(algorithmCode,3-i));        //channel, gain
-   Serial.print(getBit(algorithmCode,3-i));
-	}	
-  Serial.println();
-}
 
+
+/*
 // CV input goes like:
 // value = Pot + modPot * CV
 void updateLevel(frontPanel levelPanel, frontPanel levelModPanel, int myPage){
@@ -108,8 +55,23 @@ void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int m
   waveformMod3.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[7] + waveformModPanel[7]*readModCV(ai3pin),0,256,0,10)], 420);
   waveformMod4.arbitraryWaveform(wave_type[(int)scaleLimited(waveformPanel[8] + waveformModPanel[8]*readModCV(ai4pin),0,256,0,10)], 420);
  }
-
+*/
 void updateFilter(frontPanel myFrontPanel){  
   filter1.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
   filter2.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
+}
+
+void updateIndex(frontPanel myFrontPanel){  
+  waveformMod1.amplitude(scaleSimple(myFrontPanel[2],0,255,0,1) + scaleSimple(myFrontPanel[5],0,255,0,1)*readModCV(ai2pin) );
+}
+
+void updateShape(frontPanel myFrontPanel){  
+  waveformMod1.arbitraryWaveform(wave_type[(int)scaleLimited(myFrontPanel[6] + myFrontPanel[8]*readModCV(ai3pin),0,256,0,10)], 420);
+  waveformMod2.arbitraryWaveform(wave_type[(int)scaleLimited(myFrontPanel[6] + myFrontPanel[8]*readModCV(ai3pin),0,256,0,10)], 420);
+}
+
+void updateFrequency(frontPanel myFrontPanel){  
+  baseFreq = 130.8 * pow(2,readCV(ai5pin)+scaleSimple(analogRead(pot1pin),0,4095,-1,1)) * pow(2,octaveSwitch); //+pot detune Corse, Fine maybe??
+  waveformMod1.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(myFrontPanel[4] + myFrontPanel[7]*readModCV(ai1pin),0,256,0,15)]));
+  waveformMod2.frequency(baseFreq /** (multiplierLUT[(int)scaleSimple(ratioPanel[6] + ratioModPanel[6]*readModCV(ai2pin),0,256,0,15)])*/);
 }
