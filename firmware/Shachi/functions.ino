@@ -26,6 +26,11 @@ frontPanel readFrontPanel(){
   currentFrontPanel.button1 = !digitalRead(button1pin);
   currentFrontPanel.button2 = !digitalRead(button2pin);
   currentFrontPanel.button3 = !digitalRead(button3pin);
+  currentFrontPanel.cv1 = map(analogRead(ai1pin),0,4095,255,-255);
+  currentFrontPanel.cv2 = map(analogRead(ai2pin),0,4095,255,-255);
+  currentFrontPanel.cv3 = map(analogRead(ai3pin),0,4095,255,-255);
+  currentFrontPanel.cv4 = map(analogRead(ai4pin),0,4095,255,-255);  
+  Serial.println(currentFrontPanel.cv1);
   return currentFrontPanel;
   normalizationTest();
 };
@@ -185,4 +190,17 @@ void normalizationTest (){
   }
   Serial.println(currentFrontPanel(11));
   
+}
+
+bool ttlLogic(int currentValue, int limitHigh, int limitLow){
+  if (currentValue>limitHigh){
+    return true;
+  }
+  else if (currentValue<limitLow){
+    return false;
+  }
+}
+
+bool triggerDetector (){
+  if (rpeviousState < currentStatereturn true;
 }

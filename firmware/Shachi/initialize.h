@@ -26,6 +26,7 @@ int algorithmLUT [12] = { 0b000010000100001000010001, 0b000000001100001000010001
 
 struct frontPanel{
   int pot1, pot2, pot3, pot4, pot5, pot6, pot7, pot8; //Potmeters
+  int cv1, cv2, cv3, cv4; //CV ins
   bool button1, button2, button3;                     //Buttons
   bool conn1, conn2, conn3, conn4;                    //Jack Connections
   int &operator[]( size_t idx ) {
@@ -38,6 +39,10 @@ struct frontPanel{
             case 6 : return pot6;
             case 7 : return pot7;
             case 8 : return pot8;
+            case 101 : return cv1;
+            case 202 : return cv2;
+            case 303 : return cv3;
+            case 404 : return cv4;
             default: return pot1;
             //default: throw std::runtime_error( "bad index" );
         }

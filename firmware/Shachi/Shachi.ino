@@ -42,7 +42,6 @@ void loop()
   //delay(0); 
   //Serial.println(readCV(ai5pin));
   //Serial.println(AudioProcessorUsage()); 
-  Serial.println(analogRead(ai2pin));
 
 
   
