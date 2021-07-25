@@ -29,7 +29,7 @@ void setup()
   sgtl5000_1.volume(0.8);
   initializeAudioEngine();
 
-  initFromMemory();
+  //initFromMemory();
   
 }
 
