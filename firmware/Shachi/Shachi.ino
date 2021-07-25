@@ -13,15 +13,16 @@ void setup()
 {
   pinMode(button1pin,INPUT_PULLUP);
   pinMode(button2pin,INPUT_PULLUP);
-  pinMode(button3pin,INPUT_PULLUP);
+  pinMode(button3pin,INPUT_PULLUP);  
   pinMode(normalizationPin, OUTPUT);
+  pinMode(ai2pin,INPUT_PULLUP);
   
-  //Serial.begin(115200);
+  Serial.begin(115200);
   analogReadResolution(analogRes);
   digitalWrite(normalizationPin, LOW);
 	// Audio connections require memory to work.  For more
   // detailed information, see the MemoryAndCpuUsage example
-  AudioMemory(12);
+  AudioMemory(24);
 
   // Enable the audio shield, select input, and enable output
   sgtl5000_1.enable();
@@ -30,6 +31,8 @@ void setup()
   initializeAudioEngine();
 
   //initFromMemory();
+
+  //attachInterrupt(digitalPinToInterrupt(ai2pin), triggerMeDaddy, FALLING);
   
 }
 
@@ -39,6 +42,12 @@ void loop()
   //delay(0); 
   //Serial.println(readCV(ai5pin));
   //Serial.println(AudioProcessorUsage()); 
+  Serial.println(analogRead(ai2pin));
+
 
   
+}
+
+void triggerMeDaddy(){    
+    triggerEnvelopes();  
 }

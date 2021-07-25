@@ -1,6 +1,8 @@
 frontPanel currentFrontPanel, previousFrontPanel;
 struct frontPanel myFrontPanels[8];
 
+
+
 void initFrontPanels (frontPanel myFrontPanels[]){
   for(int i=0; i<6; i++){
     myFrontPanels[i].pot4 = 0;
@@ -25,6 +27,7 @@ frontPanel readFrontPanel(){
   currentFrontPanel.button2 = !digitalRead(button2pin);
   currentFrontPanel.button3 = !digitalRead(button3pin);
   return currentFrontPanel;
+  normalizationTest();
 };
 
 int searchStructDiffIndex (frontPanel s1, frontPanel s2){
@@ -87,24 +90,25 @@ int getBit(int code, int posi){ //LSB based
 
 void fpEventHandler(){
   currentFrontPanel = readFrontPanel();
+  
   int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);  
   if (diffIndex != -1){
     int newValue = showStructValue(currentFrontPanel, diffIndex);
     Serial.print("Difference at index ");Serial.print(diffIndex);
     Serial.print(" New value: ");Serial.println(newValue);
-    if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (octaveSwitch < 5))
+    if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (octaveSwitch < 5))
     {
       octaveSwitch++;
       //EEPROM.put(0,frontPanelPage);
     }
-    if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (octaveSwitch > 1))
+    if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (octaveSwitch > 1))
     {
       octaveSwitch--;
       //EEPROM.put(0,frontPanelPage);
     }
     if ((currentFrontPanel.button2 > previousFrontPanel.button2))
     {
-
+      triggerEnvelopes();
     }
     if(diffIndex == 1){
 
@@ -128,6 +132,7 @@ void fpEventHandler(){
   updateIndex(currentFrontPanel);
   updateShape(currentFrontPanel);
   updateFrequency(currentFrontPanel);
+  updateEnvelopes(currentFrontPanel);
   
 }
 
@@ -165,5 +170,19 @@ void loadParams(int eeAddress, frontPanel customVar[]){
 }
 
 void initFromMemory(){
+  
+}
+void normalizationTest (){
+  digitalWrite(normalizationPin,HIGH);
+  if (digitalRead(ai1pin)){
+    currentFrontPanel(11) = false; //false = open connection, unplugged
+  }
+  else{
+    digitalWrite(normalizationPin,LOW);
+    if (!digitalRead(ai1pin)){
+    currentFrontPanel(11) = false; //false = open connection, unplugged
+    }
+  }
+  Serial.println(currentFrontPanel(11));
   
 }
