@@ -1,6 +1,8 @@
 frontPanel currentFrontPanel, previousFrontPanel;
 struct frontPanel myFrontPanels[8];
 
+bool previousTriggerState, currentTriggerState;
+
 
 
 void initFrontPanels (frontPanel myFrontPanels[]){
@@ -30,7 +32,7 @@ frontPanel readFrontPanel(){
   currentFrontPanel.cv2 = map(analogRead(ai2pin),0,4095,255,-255);
   currentFrontPanel.cv3 = map(analogRead(ai3pin),0,4095,255,-255);
   currentFrontPanel.cv4 = map(analogRead(ai4pin),0,4095,255,-255);  
-  Serial.println(currentFrontPanel.cv1);
+  //Serial.println(currentFrontPanel.cv1);
   return currentFrontPanel;
   normalizationTest();
 };
@@ -95,6 +97,10 @@ int getBit(int code, int posi){ //LSB based
 
 void fpEventHandler(){
   currentFrontPanel = readFrontPanel();
+
+  currentTriggerState = ttlLogic(currentFrontPanel.cv1, 64, 26);
+  triggerDetector (previousTriggerState, currentTriggerState);
+  previousTriggerState = currentTriggerState;
   
   int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);  
   if (diffIndex != -1){
@@ -188,19 +194,35 @@ void normalizationTest (){
     currentFrontPanel(11) = false; //false = open connection, unplugged
     }
   }
-  Serial.println(currentFrontPanel(11));
+  //Serial.println(currentFrontPanel(11));
   
 }
 
 bool ttlLogic(int currentValue, int limitHigh, int limitLow){
-  if (currentValue>limitHigh){
-    return true;
+  bool result;
+  if (currentValue > limitHigh){
+    result = true;
+    //Serial.println("TRUE");
   }
-  else if (currentValue<limitLow){
-    return false;
+  else if (currentValue < limitLow){
+    result = false;
+    //Serial.println("FALSE");
   }
+  else {
+    //Serial.println("none");
+    result = false;
+  }  
+  return result;
 }
 
-bool triggerDetector (){
-  if (rpeviousState < currentStatereturn true;
+void triggerDetector (bool previousState, bool currentState){
+  if (previousState < currentState){
+    triggerEnvelopes();    
+  }
+  else if (previousState > currentState){
+    
+  }
+  else {
+    
+  }  
 }
