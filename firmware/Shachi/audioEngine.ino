@@ -1,7 +1,14 @@
-double phaseAmt = 720.0;
+double phaseAmt = 1080;
 double baseFreq = 50;
 int octaveSwitch = 0;
 double  multiplierLUT [16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+
+//Waveshaper
+float waveshaperCoefficient=1;
+float waveshaperCoefficientMIN=1;
+float waveshaperCoefficientMAX=10;
+float waveshape1Array[129];
+double waveshapeBase [129];
 
 void initializeAudioEngine(){
 	waveformMod1.begin(1,50,WAVEFORM_SINE);
@@ -35,7 +42,16 @@ void initializeAudioEngine(){
   envelope3.sustain(0);
   //envelope3.release(0);
   
+<<<<<<< HEAD
   
+=======
+  filter1.octaveControl(7);
+  filter2.octaveControl(7);
+  filter1.frequency(15000);
+  filter1.frequency(15000);
+
+  EEPROM.get(0, octaveSwitch);
+>>>>>>> parent of 63b4819 (Revert "Tweakz")
 }
 
 
@@ -71,8 +87,8 @@ void updateWaveform(frontPanel waveformPanel, frontPanel waveformModPanel, int m
  }
 */
 void updateFilter(frontPanel myFrontPanel){  
-  filter1.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
-  filter2.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
+  //filter1.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));   ///filter disabled due to implemented Waveshaper
+  //filter2.frequency(scaleSimple(myFrontPanel[3],0,255,100,7500));
 }
 
 void updateIndex(frontPanel myFrontPanel){  
@@ -83,6 +99,9 @@ void updateIndex(frontPanel myFrontPanel){
 void updateShape(frontPanel myFrontPanel){  
   //waveformMod1.arbitraryWaveform(wave_type[(int)scaleLimited(myFrontPanel[6] + myFrontPanel[8]*readModCV(ai3pin),0,256,0,10)], 420);
   //waveformMod2.arbitraryWaveform(wave_type[(int)scaleLimited(myFrontPanel[6] + myFrontPanel[8]*readModCV(ai3pin),0,256,0,10)], 420);
+  waveshaperCoefficient  = scaleSimple(myFrontPanel[3],0,255,1,10);  //scaleSimple does not work on this variable (??), currently this scuffed but reliable method is used to scale the waveshaper constant
+  waveshaperUpdate(waveshaperCoefficient);
+  waveshape1.shape(waveshape1Array,129);
 }
 
 void updateFrequency(frontPanel myFrontPanel){  
