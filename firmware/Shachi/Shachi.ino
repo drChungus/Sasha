@@ -5,6 +5,9 @@
 //#include "audioEngine.h"
 //#include "functions.h"
 
+const int myInput = AUDIO_INPUT_LINEIN;
+
+
 
 void setup()
 {
@@ -23,10 +26,8 @@ void setup()
 
   // Enable the audio shield, select input, and enable output
   sgtl5000_1.enable();
-  sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
+  sgtl5000_1.inputSelect(myInput);
   sgtl5000_1.volume(0.8);
-  sgtl5000_1.lineOutLevel(13); //13: 3.16 Volts p-p
-  
   initializeAudioEngine();
 
   //initFromMemory();
