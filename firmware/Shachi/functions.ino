@@ -105,8 +105,8 @@ void fpEventHandler(){
   int diffIndex = searchStructDiffIndex(previousFrontPanel, currentFrontPanel);  
   if (diffIndex != -1){
     int newValue = showStructValue(currentFrontPanel, diffIndex);
-    Serial.print("Difference at index ");Serial.print(diffIndex);
-    Serial.print(" New value: ");Serial.println(newValue);
+    //Serial.print("Difference at index ");Serial.print(diffIndex);
+    //Serial.print(" New value: ");Serial.println(newValue);
     if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (octaveSwitch < 5))
     {
       octaveSwitch++;
@@ -231,12 +231,16 @@ void waveshapeInit(){
   waveshapeBase[0] = -1;
   for (int i = 0; i < 129; i++){
     waveshapeBase[i+1] = waveshapeBase[i] +  0.015625; //Fill in WaveshapeBase array with 129 values between -1 to +1
-    Serial.println(waveshapeBase[i]);  
+    Serial.println(waveshape1Array[i]);  
+    //delay(1);
   }
 }
   
 void waveshaperUpdate(double waveshaperCoefficient){
   for (int i = 0; i < 129; i++){
-    waveshape1Array[i] = 1-2/(1+exp(2*waveshapeBase[i]* waveshaperCoefficient));   //tanh(x) = 1-2/(1+exp(2*x)) = (exp(2*x)-1)/(exp(2*x)+1)
+    waveshape1Array[i] = 1-2/(1+exp(2*(-1 + i*0.015625)* waveshaperCoefficient));   //tanh(x) = 1-2/(1+exp(2*x)) = (exp(2*x)-1)/(exp(2*x)+1)
+    //waveshape1Array[i] = -1 + i*0.015625;
+    //Serial.println(waveshape1Array[i]); 
+    //delay(1);
   }
 }

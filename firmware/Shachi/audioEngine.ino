@@ -8,7 +8,7 @@ float waveshaperCoefficient=1;
 float waveshaperCoefficientMIN=1;
 float waveshaperCoefficientMAX=10;
 float waveshape1Array[129];
-double waveshapeBase [129];
+float waveshapeBase[129];
 
 
 void initializeAudioEngine(){
@@ -49,7 +49,8 @@ void initializeAudioEngine(){
   filter1.frequency(15000);
   filter1.frequency(15000);
 
-  //waveshapeInit(); /// THIS IS THE CULPRIT
+  //waveshapeInit(); /// THIS IS NOT WORKING 
+  Serial.println("Waveshaper Array Initialized");
 
   EEPROM.get(0, octaveSwitch);
 
