@@ -1,4 +1,4 @@
-double phaseAmt = 1080;
+double phaseAmt = 720.0;
 double baseFreq = 50;
 int octaveSwitch = 0;
 double  multiplierLUT [16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
@@ -42,16 +42,16 @@ void initializeAudioEngine(){
   envelope3.sustain(0);
   //envelope3.release(0);
   
-<<<<<<< HEAD
+//<<<<<<< HEAD
   
-=======
+///=======
   filter1.octaveControl(7);
   filter2.octaveControl(7);
   filter1.frequency(15000);
   filter1.frequency(15000);
 
   EEPROM.get(0, octaveSwitch);
->>>>>>> parent of 63b4819 (Revert "Tweakz")
+//>>>>>>> parent of 63b4819 (Revert "Tweakz")
 }
 
 
