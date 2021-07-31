@@ -1,7 +1,14 @@
-double phaseAmt = 720.0;
+double phaseAmt = 1080;
 double baseFreq = 50;
 int octaveSwitch = 0;
 double  multiplierLUT [16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+
+//Waveshaper
+float waveshaperCoefficient=1;
+float waveshaperCoefficientMIN=1;
+float waveshaperCoefficientMAX=10;
+float waveshape1Array[129];
+double waveshapeBase [129];
 
 //Waveshaper
 float waveshaperCoefficient=1;
@@ -51,7 +58,10 @@ void initializeAudioEngine(){
   filter1.frequency(15000);
 
   EEPROM.get(0, octaveSwitch);
+<<<<<<< HEAD
 //>>>>>>> parent of 63b4819 (Revert "Tweakz")
+=======
+>>>>>>> parent of 63b4819 (Revert "Tweakz")
 }
 
 
