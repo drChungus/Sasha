@@ -2,6 +2,7 @@
 #include "waveforms.h"
 #include "physicalLayer.h"
 #include "initialize.h"
+#include "EEPROM.h"
 //#include "audioEngine.h"
 //#include "functions.h"
 
@@ -22,8 +23,9 @@ void setup()
   AudioMemory(24);
 
   // Enable the audio shield, select input, and enable output
+  const int myInput = AUDIO_INPUT_LINEIN;
   sgtl5000_1.enable();
-  sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
+  sgtl5000_1.inputSelect(myInput);
   sgtl5000_1.volume(0.8);
   sgtl5000_1.lineOutLevel(13); //13: 3.16 Volts p-p
   
@@ -40,6 +42,6 @@ void loop()
   fpEventHandler();
   //delay(0); 
   //Serial.println(readCV(ai5pin));
-  //Serial.println(AudioProcessorUsage()); 
+  Serial.println(AudioProcessorUsage()); 
   
 }

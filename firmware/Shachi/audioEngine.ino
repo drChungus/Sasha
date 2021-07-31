@@ -48,6 +48,8 @@ void initializeAudioEngine(){
   filter1.frequency(15000);
 
   EEPROM.get(0, octaveSwitch);
+
+  waveshapeInit();
 }
 
 
@@ -95,9 +97,11 @@ void updateIndex(frontPanel myFrontPanel){
 void updateShape(frontPanel myFrontPanel){  
   //waveformMod1.arbitraryWaveform(wave_type[(int)scaleLimited(myFrontPanel[6] + myFrontPanel[8]*readModCV(ai3pin),0,256,0,10)], 420);
   //waveformMod2.arbitraryWaveform(wave_type[(int)scaleLimited(myFrontPanel[6] + myFrontPanel[8]*readModCV(ai3pin),0,256,0,10)], 420);
+  
   waveshaperCoefficient  = scaleSimple(myFrontPanel[3],0,255,1,10);  //scaleSimple does not work on this variable (??), currently this scuffed but reliable method is used to scale the waveshaper constant
   waveshaperUpdate(waveshaperCoefficient);
   waveshape1.shape(waveshape1Array,129);
+  Serial.println("Waveshape Setup Done");
 }
 
 void updateFrequency(frontPanel myFrontPanel){  

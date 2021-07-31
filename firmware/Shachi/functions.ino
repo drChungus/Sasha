@@ -110,12 +110,12 @@ void fpEventHandler(){
     if ((currentFrontPanel.button1 > previousFrontPanel.button1) && (octaveSwitch < 5))
     {
       octaveSwitch++;
-      EEPROM.put(0,octaveSwitch);
+      //EEPROM.put(0,octaveSwitch);
     }
     if ((currentFrontPanel.button3 > previousFrontPanel.button3) && (octaveSwitch > 1))
     {
       octaveSwitch--;
-      EEPROM.put(0,octaveSwitch);
+      //EEPROM.put(0,octaveSwitch);
     }
     if ((currentFrontPanel.button2 > previousFrontPanel.button2))
     {
@@ -141,9 +141,11 @@ void fpEventHandler(){
   
   updateFilter(currentFrontPanel); 
   updateIndex(currentFrontPanel);
+  
   updateShape(currentFrontPanel);
   updateFrequency(currentFrontPanel);
   updateEnvelopes(currentFrontPanel);
+  
   
 }
 
@@ -227,10 +229,18 @@ void triggerDetector (bool previousState, bool currentState){
   }  
 }
 
-
+void waveshapeInit(){
+  waveshapeBase[0] = -1;
+  for (int i = 0; i < 129; i++){
+    waveshapeBase[i+1] = waveshapeBase[i] +  0.015625; //Fill in WaveshapeBase array with 129 values between -1 to +1
+    Serial.println(waveshapeBase[i]);  
+  }
+}
   
 void waveshaperUpdate(double waveshaperCoefficient){
   for (int i = 0; i < 129; i++){
     waveshape1Array[i] = 1-2/(1+exp(2*waveshapeBase[i]* waveshaperCoefficient));   //tanh(x) = 1-2/(1+exp(2*x)) = (exp(2*x)-1)/(exp(2*x)+1)
+    waveshape1Array[i] = 1-2/(1+exp(2*waveshapeBase[i]* 1));
+    Serial.println(i);
   }
 }
