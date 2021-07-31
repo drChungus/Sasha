@@ -1,7 +1,7 @@
 double phaseAmt = 1080;
 double baseFreq = 50;
 int octaveSwitch = 0;
-double  multiplierLUT [16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+double  multiplierLUT [16] = {0.25,0.5,1,2,3,4,5,6,7,8,9,10,11,12,13};
 
 //Waveshaper
 float waveshaperCoefficient=1;
@@ -106,7 +106,7 @@ void updateShape(frontPanel myFrontPanel){
 }
 
 void updateFrequency(frontPanel myFrontPanel){  
-  baseFreq = 32.7 * pow(2,readCV(ai5pin)+scaleSimple(analogRead(pot2pin),0,4095,-0.5,0.5)) * pow(2,octaveSwitch); //+pot detune Corse, Fine maybe??
+  baseFreq = 16.35 * pow(2,readCV(ai5pin)+scaleSimple(analogRead(pot2pin),0,4095,-0.5,0.5)) * pow(2,octaveSwitch); //+pot detune Corse, Fine maybe??
   waveformMod1.frequency(baseFreq * (multiplierLUT[(int)scaleSimple(myFrontPanel[1] /* + myFrontPanel[7]*readModCV(ai1pin)*/,0,256,0,15)]));
   waveformMod2.frequency(baseFreq /** (multiplierLUT[(int)scaleSimple(ratioPanel[6] + ratioModPanel[6]*readModCV(ai2pin),0,256,0,15)])*/);
 }
