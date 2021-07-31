@@ -10,12 +10,6 @@ float waveshaperCoefficientMAX=10;
 float waveshape1Array[129];
 double waveshapeBase [129];
 
-//Waveshaper
-float waveshaperCoefficient=1;
-float waveshaperCoefficientMIN=1;
-float waveshaperCoefficientMAX=10;
-float waveshape1Array[129];
-double waveshapeBase [129];
 
 void initializeAudioEngine(){
 	waveformMod1.begin(1,50,WAVEFORM_SINE);
@@ -49,19 +43,16 @@ void initializeAudioEngine(){
   envelope3.sustain(0);
   //envelope3.release(0);
   
-//<<<<<<< HEAD
-  
-///=======
+
   filter1.octaveControl(7);
   filter2.octaveControl(7);
   filter1.frequency(15000);
   filter1.frequency(15000);
 
+  //waveshapeInit(); /// THIS IS THE CULPRIT
+
   EEPROM.get(0, octaveSwitch);
-<<<<<<< HEAD
-//>>>>>>> parent of 63b4819 (Revert "Tweakz")
-=======
->>>>>>> parent of 63b4819 (Revert "Tweakz")
+
 }
 
 

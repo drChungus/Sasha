@@ -227,7 +227,13 @@ void triggerDetector (bool previousState, bool currentState){
   }  
 }
 
-
+void waveshapeInit(){
+  waveshapeBase[0] = -1;
+  for (int i = 0; i < 129; i++){
+    waveshapeBase[i+1] = waveshapeBase[i] +  0.015625; //Fill in WaveshapeBase array with 129 values between -1 to +1
+    Serial.println(waveshapeBase[i]);  
+  }
+}
   
 void waveshaperUpdate(double waveshaperCoefficient){
   for (int i = 0; i < 129; i++){
