@@ -3,7 +3,7 @@
 <eagle version="9.6.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="12.5" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mil"/>
@@ -1406,7 +1406,7 @@ Please make sure your boards conform to these design rules.
 <attribute name="NAME" x="-14.2875" y="26.3525" size="1.27" layer="25" rot="R180"/>
 <attribute name="VALUE" x="-12.065" y="27.6225" size="1.27" layer="27" rot="R180"/>
 </element>
-<element name="C40" library="rcl" package="C0603" value="220p" x="-12.7" y="30.1625" smashed="yes" rot="R180">
+<element name="C40" library="rcl" package="C0603" value="1n" x="-12.7" y="30.1625" smashed="yes" rot="R180">
 <attribute name="NAME" x="-14.2875" y="30.7975" size="1.27" layer="25" rot="R180"/>
 <attribute name="VALUE" x="-12.7" y="32.0675" size="1.27" layer="27" rot="R180"/>
 </element>
@@ -1445,7 +1445,7 @@ Please make sure your boards conform to these design rules.
 <attribute name="NAME" x="-7.62" y="23.8125" size="1.27" layer="25"/>
 <attribute name="VALUE" x="-8.255" y="23.8125" size="1.27" layer="27"/>
 </element>
-<element name="C4" library="rcl" package="C0603" value="220p" x="-7.62" y="27.94" smashed="yes">
+<element name="C4" library="rcl" package="C0603" value="1n" x="-7.62" y="27.94" smashed="yes">
 <attribute name="NAME" x="-5.08" y="26.67" size="1.27" layer="25" rot="R90"/>
 <attribute name="VALUE" x="-8.255" y="26.035" size="1.27" layer="27"/>
 </element>
@@ -1469,7 +1469,7 @@ Please make sure your boards conform to these design rules.
 <attribute name="NAME" x="-9.2075" y="45.085" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="-8.255" y="43.18" size="1.27" layer="27"/>
 </element>
-<element name="C7" library="rcl" package="C0603" value="220p" x="-7.62" y="42.2275" smashed="yes">
+<element name="C7" library="rcl" package="C0603" value="1n" x="-7.62" y="42.2275" smashed="yes">
 <attribute name="NAME" x="-9.2075" y="42.545" size="0.635" layer="25" rot="R180"/>
 <attribute name="VALUE" x="-8.255" y="42.2275" size="1.27" layer="27"/>
 </element>
@@ -1492,7 +1492,7 @@ Please make sure your boards conform to these design rules.
 <attribute name="NAME" x="-14.2875" y="45.085" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="-4.445" y="50.165" size="1.27" layer="27" rot="R180"/>
 </element>
-<element name="C10" library="rcl" package="C0603" value="220" x="-12.7" y="42.2275" smashed="yes" rot="R180">
+<element name="C10" library="rcl" package="C0603" value="4.7n" x="-12.7" y="42.2275" smashed="yes" rot="R180">
 <attribute name="NAME" x="-14.2875" y="42.545" size="0.635" layer="25" rot="R180"/>
 <attribute name="VALUE" x="-12.065" y="46.6725" size="1.27" layer="27" rot="R180"/>
 </element>
