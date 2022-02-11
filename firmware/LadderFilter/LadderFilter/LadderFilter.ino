@@ -15,7 +15,8 @@
 #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
-AudioInputI2S            i2s1;           //xy=83,184
+AudioInputI2S          
+i2s1;           //xy=83,184
 AudioAmplifier           amp1;           //xy=244,191
 AudioFilterLadder        ladder1;        //xy=391,205
 AudioAmplifier           amp2;           //xy=424,317
@@ -87,7 +88,7 @@ void setup() {
 elapsedMillis volmsec = 0;
 
 void loop() {
-  ladder1.frequency(pow(2,((     double(analogRead(pot7pin)) + double(analogRead(pot4pin))/1023 * -2*double(analogRead(ai1pin)-512) + double(analogRead(pot6pin))/1023 * -2*double(analogRead(ai2pin)-512)  )/100))*20);
+  ladder1.frequency(pow(2,((     double(analogRead(pot8pin)) + double(analogRead(pot4pin))/1023 * -2*double(analogRead(ai1pin)-512) + double(analogRead(pot6pin))/1023 * -2*double(analogRead(ai2pin)-512)  )/100))*20);
   ladder1.resonance((double(analogRead(pot1pin)) / 1023)*1.1);
   Serial.println(analogRead(ai1pin));
 
